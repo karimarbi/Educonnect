@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Utilisateurs{% endblock %}
+
+{% block body %}
+    <h1>Liste des Utilisateurs</h1>
+
+    {% for message in app.flashes('success') %}
+        <p style="color: green;">{{ message }}</p>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <p style="color: red;">{{ message }}</p>
+    {% endfor %}
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>CIN</th>
+                <th>Âge</th>
+                <th>Date de naissance</th>
+                <th>Lieu</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Spécialité</th>
+                <th>Salaire</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for utilisateur in utilisateurs %}
+                <tr>
+                    <td>{{ utilisateur.id }}</td>
+                    <td>{{ utilisateur.nom }}</td>
+                    <td>{{ utilisateur.prenom }}</td>
+                    <td>{{ utilisateur.cin }}</td>
+                    <td>{{ utilisateur.age }}</td>
+                    <td>{{ utilisateur.dateNai|date('Y-m-d') }}</td>
+                    <td>{{ utilisateur.lieu }}</td>
+                    <td>{{ utilisateur.email }}</td>
+                    <td>{{ utilisateur.role }}</td>
+                    <td>{{ utilisateur.specialite }}</td>
+                    <td>{{ utilisateur.salaire }}</td>
+                    <td>
+                        <form method="post" action="{{ path('delete_utilisateur', {'id': utilisateur.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+                            <button type="submit" style="color: red;">Supprimer</button>
+                        </form>
+                         <a href="{{ path('update_utilisateur', {'id': utilisateur.id}) }}">
+        <button type="button" style="color: blue;">Mettre à jour</button>
+    </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="12">Aucun utilisateur trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
