@@ -1,0 +1,61 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block title %}New Course{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded">
+                <div class="card-header" style="background-color: #464343; color: white; text-align: center; box-shadow: 0 4px 8px rgba(222,222,222,0.2);">
+                    <h3 class="mb-0" style="font-family: 'Arial', sans-serif; font-weight: 600;">Create New Course</h3>
+                </div>
+
+                <div class="card-body">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                        <div class="mb-3">
+                            {{ form_label(form.titre, 'Titre du cours', {'label_attr': {'class': 'fw-bold form-label'}}) }}
+                            {{ form_widget(form.titre, {'attr': {'class': 'form-control rounded-pill shadow-sm', 'placeholder': 'Entrez le titre'}}) }}
+                            {{ form_errors(form.titre) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.formateur, 'Formateur', {'label_attr': {'class': 'fw-bold form-label'}}) }}
+                            {{ form_widget(form.formateur, {'attr': {'class': 'form-control rounded-pill shadow-sm', 'placeholder': 'Sélectionnez le formateur'}}) }}
+                            {{ form_errors(form.formateur) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.description, 'Description', {'label_attr': {'class': 'fw-bold form-label'}}) }}
+                            {{ form_widget(form.description, {'attr': {'class': 'form-control shadow-sm', 'rows': '4', 'placeholder': 'Entrez une description'}}) }}
+                            {{ form_errors(form.description) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.contenu, 'Contenu du cours', {'label_attr': {'class': 'fw-bold form-label'}}) }}
+                            {{ form_widget(form.contenu, {'attr': {'class': 'form-control shadow-sm', 'rows': '4', 'placeholder': 'Entrez le contenu du cours'}}) }}
+                            {{ form_errors(form.contenu) }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form_label(form.categorie, 'Category', {'label_attr': {'class': 'fw-bold form-label'}}) }}
+                            {{ form_widget(form.categorie, {'attr': {'class': 'form-control rounded-pill shadow-sm'}}) }}
+                            {{ form_errors(form.categorie) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.image, 'Image du cours', {'label_attr': {'class': 'fw-bold form-label'}}) }}
+                            {{ form_widget(form.image, {'attr': {'class': 'form-control shadow-sm'}}) }}
+                            {{ form_errors(form.image) }}
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success px-4 py-2 rounded-pill shadow-sm">Créer</button>
+                            <a href="{{ path('app_cours_index') }}" class="btn btn-secondary px-4 py-2 rounded-pill shadow-sm">Retour à la liste</a>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

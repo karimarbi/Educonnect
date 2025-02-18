@@ -1,0 +1,49 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card shadow-lg border-0 rounded-lg">
+                    <div class="card-header bg-gradient-dark text-white text-center py-3">
+                        <h5 class="mb-0">{{ form.vars.value.id ? 'Edit Test' : 'Create New Test' }}</h5>
+                    </div>
+                    <div class="card-body px-4 py-4">
+                        <form method="post" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" enctype="multipart/form-data">
+                            {{ form_start(form) }}
+
+                            <div class="mb-3">
+                                {{ form_label(form.matiere, 'Matière', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.matiere, {'attr': {'class': 'form-control bg-white text-dark border border-black rounded-3'}}) }}
+                                {{ form_errors(form.matiere) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.heuredutest, 'Heure du Test', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.heuredutest, {'attr': {'class': 'form-control bg-white text-dark border border-black rounded-3'}}) }}
+                                {{ form_errors(form.heuredutest) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.nomduformateur, 'Nom du Formateur', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.nomduformateur, {'attr': {'class': 'form-control bg-white text-dark border border-black rounded-3'}}) }}
+                                {{ form_errors(form.nomduformateur) }}
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary px-4 py-2">
+                                    <i class="material-symbols-rounded text-sm me-2">save</i> Save Test
+                                </button>
+                                <a href="{{ path('app_gestion_test') }}" class="btn btn-secondary px-4 py-2">
+                                    <i class="material-symbols-rounded text-sm me-2">arrow_back</i> Back
+                                </a>
+                            </div>
+
+                            {{ form_end(form) }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

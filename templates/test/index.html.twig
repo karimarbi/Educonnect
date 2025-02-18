@@ -1,0 +1,74 @@
+
+
+{% block title %}Test Index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid py-2">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">Test Table</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
+
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Matière</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Heure du Test</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom du Formateur</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for test in tests %}
+                                    <tr>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">{{ test.id }}</span>
+                                        </td>
+
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">{{ test.matiere }}</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">{{ test.heuredutest }}</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">{{ test.nomduformateur }}</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <div class="ms-auto text-end">
+                                                <a class="btn btn-primary text-white px-3 mb-0" href="{{ path('app_test_show', {'id': test.id}) }}">
+                                                    <i class="material-symbols-rounded text-sm me-2">visibility</i> Show
+                                                </a>
+                                                <a class="btn btn-warning text-dark px-3 mb-0" href="{{ path('app_test_edit', {'id': test.id}) }}">
+                                                    <i class="material-symbols-rounded text-sm me-2">edit</i> Edit
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" class="text-center">No records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Bouton "Create New" stylisé -->
+                        <div class="text-end mt-4">
+                            <a href="{{ path('app_test_new') }}" class="btn btn-success text-white px-4 py-2">
+                                <i class="material-symbols-rounded text-sm me-2">add_circle</i> Create New Test
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

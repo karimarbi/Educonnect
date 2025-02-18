@@ -1,0 +1,30 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block title %}New Category{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-dark mb-4" style="font-size: 2.5rem; font-weight: 700;">Create New Category</h1>
+
+        <!-- Form Start -->
+        <div class="card shadow-lg border-0 rounded">
+            <div class="card-body">
+                {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_label(form.name, 'Category Name', {'label_attr': {'class': 'fw-bold'}}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control rounded-pill shadow-sm', 'placeholder': 'Enter category name'}}) }}
+                    {{ form_errors(form.name) }}
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success px-4 py-2 rounded-pill shadow-sm">Create Category</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <!-- Form End -->
+
+        <div class="mt-4">
+            <a href="{{ path('app_gestion_event') }}" class="btn btn-secondary text-white">Back to Category List</a>
+        </div>
+    </div>
+{% endblock %}

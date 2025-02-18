@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Type{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg border-0 rounded">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3 class="mb-0">Create New Type</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Form for creating a new type -->
+                        {{ include('type/_form.html.twig', {'button_label': 'Create'}) }}
+
+                        <!-- Back to the type list -->
+                        <div class="text-center mt-4">
+                            <a href="{{ path('app_gestion_test') }}" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm">
+                                Back to list
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
