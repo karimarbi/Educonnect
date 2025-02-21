@@ -7,6 +7,7 @@ use App\Repository\EventRepository;
 use App\Repository\TestRepository;
 use App\Repository\TypedetestRepository;
 use App\Repository\TypeRepository;
+use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -53,6 +54,19 @@ final class BackOfficeController extends AbstractController
             'types' => $types,
         ]);
     }
+    
+     // Integration gestion user backOffice
+     #[Route('/gestion_user', name: 'app_gestion_user', methods: ['GET'])]
+     public function gestionUser(UtilisateurRepository $userRepository): Response
+     {
+         // Récupération des utilisateues via les repositories
+         $users = $userRepository->findAll();
+         // Rendu du template gestion_user.html.twig 
+         return $this->render('back_office/gestion_user.html.twig', [
+             'users' => $users,
+            
+         ]);
+     }
 
 
 }

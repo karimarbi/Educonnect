@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mise à jour de l'utilisateur{% endblock %}
+
+{% block body %}
+    <h1>Mettre à jour l'utilisateur</h1>
+
+    {# Affichage des messages flash #}
+    {% for message in app.flashes('success') %}
+        <p style="color: green;">{{ message }}</p>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <p style="color: red;">{{ message }}</p>
+    {% endfor %}
+
+    {# Affichage des erreurs de formulaire #}
+    {% if form.vars.errors|length > 0 %}
+        <ul>
+            {% for error in form.vars.errors %}
+                <li style="color: red;">{{ error.message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {# Affichage du formulaire #}
+    {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+        {{ form_row(form.cin) }}
+        {{ form_row(form.age) }}
+        {{ form_row(form.dateNai) }}
+        {{ form_row(form.lieu) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.role) }}
+        {{ form_row(form.specialite) }}
+        {{ form_row(form.salaire) }}
+        <button type="submit">Mettre à jour</button>
+    {{ form_end(form) }}
+{% endblock %}
