@@ -9,12 +9,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\MailService;
+
 
 #[Route('/admin')]
 class RegistrationUserController extends AbstractController
 {
     #[Route('/inscription', name: 'inscription', methods: ['GET', 'POST'])]
-    public function inscription(Request $request, EntityManagerInterface $entityManager): Response
+    public function inscription(Request $request, EntityManagerInterface $entityManager,MailService $mailService): Response
     {
         $utilisateur = new Utilisateur();
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
@@ -38,8 +40,12 @@ class RegistrationUserController extends AbstractController
                 $entityManager->persist($utilisateur);
                 $entityManager->flush();
 
+                 //  Envoyer l'e-mail avec le mot de passe 
+                 $mailService->sendUserCredentials($utilisateur->getEmail(), $utilisateur->getEmail(), $utilisateur->getMdp());
+
                 $this->addFlash('success', 'Utilisateur ajouté avec succès.');
                 return $this->redirectToRoute('list_utilisateurs');
+
             } else {
                 dump('Formulaire invalide');
 
