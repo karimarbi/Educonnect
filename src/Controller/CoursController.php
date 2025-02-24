@@ -11,10 +11,20 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\InscriptionRepository;  
 
 #[Route('/cours')]
 class CoursController extends AbstractController
 {
+    private EntityManagerInterface $entityManager;
+
+    // Injecter l'EntityManagerInterface dans le constructeur
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+ 
     #[Route('/', name: 'app_cours_index', methods: ['GET'])]
     public function index(CoursRepository $coursRepository): Response
     {
@@ -22,13 +32,24 @@ class CoursController extends AbstractController
             'cours' => $coursRepository->findAll(),
         ]);
     }
+
     #[Route('/front', name: 'app_cours_indexf', methods: ['GET'])]
-    public function indexf(CoursRepository $coursRepository): Response
+    public function indexf(CoursRepository $coursRepository, InscriptionRepository $inscriptionRepository): Response
     {
+        // Récupérer tous les cours
+        $cours = $coursRepository->findAll();
+
+        // Récupérer le nombre d'inscriptions pour chaque cours
+        foreach ($cours as $cour) {
+            $inscriptionCount = $inscriptionRepository->countInscriptionsForCours($cour);
+            $cour->setInscriptionCount($inscriptionCount);
+        }
+
         return $this->render('cours/indexf.html.twig', [
-            'cours' => $coursRepository->findAll(),
+            'cours' => $cours,
         ]);
     }
+    
 
   
     #[Route('/new', name: 'app_cours_new', methods: ['GET', 'POST'])]

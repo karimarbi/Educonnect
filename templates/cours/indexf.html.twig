@@ -9,45 +9,43 @@
             <div class="row">
                 {% for cour in cours %}
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="course-item">
-                            <img src="{{ asset('img/' ~ cour.image) }}" class="img-fluid fixed-size-image" alt="{{ cour.titre }}">
+                        <div class="card shadow-lg border-0 rounded-4">
+                            <img src="{{ asset('img/' ~ cour.image) }}" class="card-img-top rounded-top-4" alt="{{ cour.titre }}" style="height: 200px; object-fit: cover;">
 
-                            <div class="course-content">
-                                {# <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <p class="category">{{ cour.titre }}</p>
-                                    <p class="price">{{ cour.prix | default('$0') }}</p>
-                                </div> #}
+                            <div class="card-body">
+                                <h5 class="card-title text-primary fw-bold text-center">{{ cour.titre }}</h5>
+                                <p class="text-muted text-center">{{ cour.description }}</p>
 
-                                <h3>
-                                   {{ cour.description }}
-                                </h3>
-                                <p class="description">{{ cour.contenu }}</p>
+                                <hr class="my-3">
 
-                                <div class="trainer d-flex justify-content-between align-items-center">
-                                    <div class="trainer-profile d-flex align-items-center">
-                                        <img src="{{ asset('assets/img/trainers/trainer-1-2.jpg') }}" class="img-fluid" alt="">
-                                        <a href="#" class="trainer-link">{{ cour.formateur.nom | default('zayed') }}</a>
+                                {# <p class="text-dark"><strong>Contenu :</strong> {{ cour.contenu }}</p> #}
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ asset('assets/img/trainers/trainer-1-2.jpg') }}" class="rounded-circle me-2" width="40" height="40" alt="Formateur">
+                                        <a href="#" class="fw-bold text-decoration-none text-dark">{{ cour.formateur.nom | default('zayed') }}</a>
                                     </div>
-                                    <div class="trainer-rank d-flex align-items-center">
-                                        <i class="bi bi-person user-icon"></i>&nbsp;50
+                                    <div>
+                                        <i class="bi bi-person text-primary"></i>&nbsp;{{ cour.inscriptionCount }}
                                         &nbsp;&nbsp;
-                                        <i class="bi bi-heart heart-icon"></i>&nbsp;65
+                                        {# <i class="bi bi-heart text-danger"></i>&nbsp;65 #}
                                     </div>
+                                </div>
+
+                                <div class="text-center mt-3">
+                                    <a href="{{ path('inscription_cours', { 'userId': 2, 'coursId': cour.id }) }}" class="btn btn-outline-primary w-100 fw-bold">
+                                        S'inscrire
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- End Course Item-->
                 {% else %}
-                    <div class="col-12">
-                        <p>No records found</p>
+                    <div class="col-12 text-center">
+                        <p class="text-muted">Aucun cours disponible.</p>
                     </div>
                 {% endfor %}
             </div>
         </div>
     </section>
-
-    {# <div style="margin-left: 8%;">
-        <a href="{{ path('app_cours_new') }}">Create new</a>
-    </div> #}
 {% endblock %}

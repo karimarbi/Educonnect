@@ -129,6 +129,24 @@ class Cours
         $this->image = $image;
         return $this;
     }
+    public function getNombreInscriptions(): int
+    {
+        return count($this->inscriptions); // On suppose que la relation 'inscriptions' est déjà définie
+    }
+    private ?int $inscriptionCount = 0;
+
+    // Getter
+    public function getInscriptionCount(): ?int
+    {
+        return $this->inscriptionCount;
+    }
+
+    // Setter
+    public function setInscriptionCount(int $inscriptionCount): self
+    {
+        $this->inscriptionCount = $inscriptionCount;
+        return $this;
+    }
 
     public function __toString(): string
     {
