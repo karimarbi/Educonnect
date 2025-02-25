@@ -1,0 +1,165 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistiques Utilisateurs{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+    }
+    .example-wrapper code {
+        background: #F5F5F5;
+        padding: 2px 6px;
+    }
+</style>
+
+<div class="example-wrapper">
+    <h1>Statistiques Utilisateurs</h1>
+    
+    <h2>Statistiques par Lieu</h2>
+    {# Canvas pour le graphique des statistiques par lieu #}
+    <canvas id="lieuChart" width="400" height="200"></canvas>
+    <ul>
+        {% for stat in statsLieu %}
+            <li>{{ stat.lieu }} : {{ stat.total }} utilisateurs</li>
+        {% else %}
+            <li>Aucune donnée disponible pour les lieux.</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Statistiques d'Âge</h2>
+    <ul>
+        <li>Âge moyen: {{ statsAge.moyenne|number_format(2, '.', ' ') }} ans</li>
+        <li>Âge minimum: {{ statsAge.minimum }} ans</li>
+        <li>Âge maximum: {{ statsAge.maximum }} ans</li>
+    </ul>
+    
+    <h2>Répartition par Tranche d'Âge</h2>
+    {# Canvas pour le graphique de la répartition par tranche d'âge #}
+    <canvas id="ageChart" width="400" height="200"></canvas>
+    <ul>
+        {% for tranche in ageRangeStats %}
+            <li>Tranche {{ tranche.ageRange }} : {{ tranche.total }} utilisateurs</li>
+        {% else %}
+            <li>Aucune donnée disponible pour les tranches d'âge.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{# Inclusion de Chart.js via CDN #}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // --------------------------
+    // Graphique pour la répartition par tranche d'âge
+    // --------------------------
+    const ageRangeStats = {{ ageRangeStats|json_encode|raw }};
+    const ageLabels = ageRangeStats.map(item => item.ageRange);
+    const ageDataValues = ageRangeStats.map(item => item.total);
+    
+    const ageCtx = document.getElementById('ageChart').getContext('2d');
+    const ageChart = new Chart(ageCtx, {
+        type: 'bar',
+        data: {
+            labels: ageLabels,
+            datasets: [{
+                label: "Nombre d'utilisateurs par tranche d'âge",
+                data: ageDataValues,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    precision: 0
+                }
+            }
+        }
+    });
+
+    // --------------------------
+    // Graphique pour les statistiques par lieu
+    // --------------------------
+    const statsLieu = {{ statsLieu|json_encode|raw }};
+    const lieuLabels = statsLieu.map(item => item.lieu);
+    const lieuDataValues = statsLieu.map(item => item.total);
+    
+    const lieuCtx = document.getElementById('lieuChart').getContext('2d');
+    const lieuChart = new Chart(lieuCtx, {
+        type: 'pie',  // Vous pouvez choisir 'pie', 'doughnut', etc.
+        data: {
+            labels: lieuLabels,
+            datasets: [{
+                label: "Nombre d'utilisateurs par lieu",
+                data: lieuDataValues,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right'
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
