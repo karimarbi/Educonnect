@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+    <div class="mb-3">
+        {{ form_label(form.message, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.message, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le message'}}) }}
+        {{ form_errors(form.message) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary btn-block'}}) }}
+    </div>
+{{ form_end(form) }}

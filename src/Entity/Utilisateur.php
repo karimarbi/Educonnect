@@ -56,6 +56,9 @@ class Utilisateur
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updateAt = null;
 
+    #[ORM\OneToMany(mappedBy: 'Utilisateur', targetEntity: Reclamation::class)]
+    private $reclamations;
+
     // Constructor to initialize createdAt to the current time
     public function __construct()
     {
@@ -223,6 +226,22 @@ class Utilisateur
     public function setUpdateAt(?\DateTimeImmutable $updateAt): static
     {
         $this->updateAt = $updateAt;
+        return $this;
+    }
+    public function getReclamations()
+    {
+        return $this->reclamations;
+    }
+
+    public function addReclamation(Reclamation $reclamation)
+    {
+        $this->reclamations[] = $reclamation;
+        return $this;
+    }
+
+    public function removeReclamation(Reclamation $reclamation)
+    {
+        $this->reclamations->removeElement($reclamation);
         return $this;
     }
 }
