@@ -1,13 +1,16 @@
 <?php
+
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-class Utilisateur
+class Utilisateur implements PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -20,7 +23,7 @@ class Utilisateur
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\Column(length: 255,unique:true)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $cin = null;
 
     #[ORM\Column]
@@ -35,11 +38,11 @@ class Utilisateur
     #[ORM\Column(length: 255)]
     private ?string $lieu = null;
 
-    #[ORM\Column(length: 255,unique:true)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $mdp = null;
+    private ?string $mdp = null; // Mot de passe
 
     #[ORM\Column(length: 255)]
     private ?string $role = null;
@@ -56,14 +59,28 @@ class Utilisateur
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updateAt = null;
 
-    // Constructor to initialize createdAt to the current time
     public function __construct()
     {
-        // Set createdAt to the current datetime
         $this->createdAt = new \DateTimeImmutable();
     }
 
-    // Getter and Setter methods
+    // Implémentation correcte de getPassword()
+    public function getPassword(): ?string
+    {
+        return $this->mdp;
+    }
+
+    public function getMdp(): ?string
+    {
+        return $this->mdp;
+    }
+
+    public function setMdp(string $mdp): static
+    {
+        $this->mdp = $mdp;
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -157,17 +174,6 @@ class Utilisateur
         return $this;
     }
 
-    public function getMdp(): ?string
-    {
-        return $this->mdp;
-    }
-
-    public function setMdp(string $mdp): static
-    {
-        $this->mdp = $mdp;
-        return $this;
-    }
-
     public function getRole(): ?string
     {
         return $this->role;
@@ -224,5 +230,21 @@ class Utilisateur
     {
         $this->updateAt = $updateAt;
         return $this;
+    }
+
+    // Implémentation de UserInterface pour Symfony Security
+    public function getRoles(): array
+    {
+        return [$this->role]; // Symfony attend un tableau de rôles
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // Nettoyer les données sensibles après l'authentification
     }
 }

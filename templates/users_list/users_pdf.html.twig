@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Utilisateurs</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Liste des Utilisateurs</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>CIN</th>
+                <th>Âge</th>
+                <th>Date de naissance</th>
+                <th>Lieu</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Spécialité</th>
+                <th>Salaire</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for utilisateur in utilisateurs %}
+                <tr>
+                    <td>{{ utilisateur.id }}</td>
+                    <td>{{ utilisateur.nom }}</td>
+                    <td>{{ utilisateur.prenom }}</td>
+                    <td>{{ utilisateur.cin }}</td>
+                    <td>{{ utilisateur.age }}</td>
+                    <td>{{ utilisateur.dateNai ? utilisateur.dateNai|date('Y-m-d') : 'N/A' }}</td>
+                    <td>{{ utilisateur.lieu }}</td>
+                    <td>{{ utilisateur.email }}</td>
+                    <td>{{ utilisateur.role }}</td>
+                    <td>{{ utilisateur.specialite ?: 'N/A' }}</td>
+                    <td>{{ utilisateur.salaire ?: 'N/A' }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="11">Aucun utilisateur trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

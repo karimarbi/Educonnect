@@ -18,7 +18,14 @@
 
 <div class="example-wrapper">
     <h1>Statistiques Utilisateurs</h1>
-    
+
+    {# Bouton Télécharger PDF bien positionné #}
+    <div style="margin-bottom: 20px;">
+        <a href="{{ path('export_stats_pdf') }}" class="btn btn-primary">
+            📄 Télécharger les Statistiques en PDF
+        </a>
+    </div>
+
     <h2>Statistiques par Lieu</h2>
     {# Canvas pour le graphique des statistiques par lieu #}
     <canvas id="lieuChart" width="400" height="200"></canvas>
@@ -29,14 +36,14 @@
             <li>Aucune donnée disponible pour les lieux.</li>
         {% endfor %}
     </ul>
-    
+
     <h2>Statistiques d'Âge</h2>
     <ul>
         <li>Âge moyen: {{ statsAge.moyenne|number_format(2, '.', ' ') }} ans</li>
         <li>Âge minimum: {{ statsAge.minimum }} ans</li>
         <li>Âge maximum: {{ statsAge.maximum }} ans</li>
     </ul>
-    
+
     <h2>Répartition par Tranche d'Âge</h2>
     {# Canvas pour le graphique de la répartition par tranche d'âge #}
     <canvas id="ageChart" width="400" height="200"></canvas>
@@ -91,7 +98,7 @@
     
     const lieuCtx = document.getElementById('lieuChart').getContext('2d');
     const lieuChart = new Chart(lieuCtx, {
-        type: 'pie',  // Vous pouvez choisir 'pie', 'doughnut', etc.
+        type: 'pie',  
         data: {
             labels: lieuLabels,
             datasets: [{

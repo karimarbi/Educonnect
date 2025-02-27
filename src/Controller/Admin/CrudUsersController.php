@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Knp\Snappy\Pdf;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\UtilisateurType;
 
@@ -67,6 +68,23 @@ public function update(int $id, Request $request, EntityManagerInterface $entity
         'form' => $form->createView(),
     ]);
 }
+#[Route('/utilisateurs/pdf', name: 'export_utilisateurs_pdf', methods: ['GET'])]
+public function exportPdf(EntityManagerInterface $entityManager, Pdf $knpSnappyPdf): Response
+{
+    $utilisateurs = $entityManager->getRepository(Utilisateur::class)->findAll();
 
+    $html = $this->renderView('users_list/users_pdf.html.twig', [
+        'utilisateurs' => $utilisateurs,
+    ]);
+
+    return new Response(
+        $knpSnappyPdf->getOutputFromHtml($html),
+        200,
+        [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="liste_utilisateurs.pdf"',
+        ]
+    );
+}
   
 }

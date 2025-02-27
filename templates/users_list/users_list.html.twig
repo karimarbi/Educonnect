@@ -5,6 +5,7 @@
 {% block body %}
     <h1>Liste des Utilisateurs</h1>
 
+    {# Affichage des messages de succès ou d'erreur #}
     {% for message in app.flashes('success') %}
         <p style="color: green;">{{ message }}</p>
     {% endfor %}
@@ -12,6 +13,13 @@
     {% for message in app.flashes('error') %}
         <p style="color: red;">{{ message }}</p>
     {% endfor %}
+
+    {# Bouton Télécharger PDF #}
+    <div style="margin-bottom: 15px;">
+        <a href="{{ path('export_utilisateurs_pdf') }}" class="btn btn-primary">
+            📄 Télécharger PDF
+        </a>
+    </div>
 
     <table border="1">
         <thead>
@@ -48,9 +56,9 @@
                         <form method="post" action="{{ path('delete_utilisateur', {'id': utilisateur.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
                             <button type="submit" style="color: red;">Supprimer</button>
                         </form>
-                         <a href="{{ path('update_utilisateur', {'id': utilisateur.id}) }}">
-        <button type="button" style="color: blue;">Mettre à jour</button>
-    </a>
+                        <a href="{{ path('update_utilisateur', {'id': utilisateur.id}) }}">
+                            <button type="button" style="color: blue;">Mettre à jour</button>
+                        </a>
                     </td>
                 </tr>
             {% else %}

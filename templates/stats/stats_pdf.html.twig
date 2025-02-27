@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Statistiques Utilisateurs</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        h1, h2 { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Statistiques des Utilisateurs</h1>
+
+    <h2>📍 Statistiques par Lieu</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Lieu</th>
+                <th>Nombre d'utilisateurs</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stat in statsLieu %}
+                <tr>
+                    <td>{{ stat.lieu }}</td>
+                    <td>{{ stat.total }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">Aucune donnée disponible pour les lieux.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>📊 Statistiques d'Âge</h2>
+    <ul>
+        <li>Âge moyen : <strong>{{ statsAge.moyenne|default('N/A')|number_format(2, '.', ' ') }}</strong> ans</li>
+        <li>Âge minimum : <strong>{{ statsAge.minimum|default('N/A') }}</strong> ans</li>
+        <li>Âge maximum : <strong>{{ statsAge.maximum|default('N/A') }}</strong> ans</li>
+    </ul>
+
+    <h2>🛑 Répartition par Tranche d'Âge</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Tranche d'âge</th>
+                <th>Nombre d'utilisateurs</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tranche in ageRangeStats %}
+                <tr>
+                    <td>{{ tranche.ageRange }}</td>
+                    <td>{{ tranche.total }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">Aucune donnée disponible.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
