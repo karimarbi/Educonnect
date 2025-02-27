@@ -12,16 +12,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\InscriptionRepository;  
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/cours')]
 class CoursController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
 
+    private PaginatorInterface $paginator;
+
+
     // Injecter l'EntityManagerInterface dans le constructeur
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager,PaginatorInterface $paginator)
     {
         $this->entityManager = $entityManager;
+        $this->paginator = $paginator;
+
     }
 
  
@@ -33,23 +39,58 @@ class CoursController extends AbstractController
         ]);
     }
 
-    #[Route('/front', name: 'app_cours_indexf', methods: ['GET'])]
-    public function indexf(CoursRepository $coursRepository, InscriptionRepository $inscriptionRepository): Response
-    {
-        // Récupérer tous les cours
-        $cours = $coursRepository->findAll();
+    // #[Route('/front', name: 'app_cours_indexf', methods: ['GET'])]
+    // public function indexf(CoursRepository $coursRepository, InscriptionRepository $inscriptionRepository,PaginatorInterface $paginator): Response
+    // {
+    //     // Récupérer tous les cours
+    //     $cours = $coursRepository->findAll();
 
-        // Récupérer le nombre d'inscriptions pour chaque cours
-        foreach ($cours as $cour) {
+    //     // Récupérer le nombre d'inscriptions pour chaque cours
+    //     foreach ($cours as $cour) {
+    //         $inscriptionCount = $inscriptionRepository->countInscriptionsForCours($cour);
+    //         $cour->setInscriptionCount($inscriptionCount);
+    //     }
+
+    //     return $this->render('cours/indexf.html.twig', [
+    //         'cours' => $cours,
+    //     ]);
+    // }// src/Controller/CoursController.php
+
+    #[Route('/front', name: 'app_cours_indexf', methods: ['GET'])]
+    public function indexf(
+        Request $request,
+        CoursRepository $coursRepository,
+        InscriptionRepository $inscriptionRepository
+    ): Response {
+        $page = $request->query->getInt('page', 1);
+
+        // Récupérer tous les cours
+        $query = $coursRepository->createQueryBuilder('c')
+            ->getQuery();
+
+        // Pagination avec le service PaginatorInterface
+        $pagination = $this->paginator->paginate(
+            $query,
+            $page,
+            6 // Nombre de résultats par page
+        );
+
+        // Ajouter le nombre d'inscriptions pour chaque cours
+        foreach ($pagination as $cour) {
             $inscriptionCount = $inscriptionRepository->countInscriptionsForCours($cour);
             $cour->setInscriptionCount($inscriptionCount);
         }
 
+        if ($request->isXmlHttpRequest()) {
+            return $this->json([
+                'html' => $this->renderView('cours/_list.html.twig', ['pagination' => $pagination])
+            ]);
+        }
+
         return $this->render('cours/indexf.html.twig', [
-            'cours' => $cours,
+            'pagination' => $pagination,
         ]);
     }
-    
 
   
     #[Route('/new', name: 'app_cours_new', methods: ['GET', 'POST'])]

@@ -1,0 +1,30 @@
+{# templates/cours/_list.html.twig #}
+
+<div class="row">
+    {% for cour in pagination %}
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
+            <div class="card shadow-lg border-0 rounded-4">
+                <img src="{{ asset('img/' ~ cour.image) }}" class="card-img-top rounded-top-4" alt="{{ cour.titre }}" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title text-primary fw-bold text-center">{{ cour.titre }}</h5>
+                    <p class="text-muted text-center">{{ cour.description }}</p>
+
+                    <div class="text-center mt-3">
+                        <a href="{{ path('inscription_cours', { 'userId': 2, 'coursId': cour.id }) }}" class="btn btn-outline-primary w-100 fw-bold">
+                            S'inscrire
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="col-12 text-center">
+            <p class="text-muted">Aucun cours trouvé.</p>
+        </div>
+    {% endfor %}
+</div>
+
+{# Pagination #}
+<div class="d-flex justify-content-center mt-4">
+    {{ knp_pagination_render(pagination) }}
+</div>
