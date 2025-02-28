@@ -42,7 +42,7 @@ class Utilisateur implements PasswordAuthenticatedUserInterface, UserInterface
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $mdp = null; // Mot de passe
+    private ?string $password = null; // Mot de passe (correction du champ)
 
     #[ORM\Column(length: 255)]
     private ?string $role = null;
@@ -64,20 +64,15 @@ class Utilisateur implements PasswordAuthenticatedUserInterface, UserInterface
         $this->createdAt = new \DateTimeImmutable();
     }
 
-    // Implémentation correcte de getPassword()
+    // Implémentation correcte de getPassword() pour Symfony Security
     public function getPassword(): ?string
     {
-        return $this->mdp;
+        return $this->password;
     }
 
-    public function getMdp(): ?string
+    public function setPassword(string $password): static
     {
-        return $this->mdp;
-    }
-
-    public function setMdp(string $mdp): static
-    {
-        $this->mdp = $mdp;
+        $this->password = $password;
         return $this;
     }
 
@@ -232,10 +227,16 @@ class Utilisateur implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
-    // Implémentation de UserInterface pour Symfony Security
+    // Implémentation correcte de getRoles() pour Symfony Security
     public function getRoles(): array
     {
-        return [$this->role]; // Symfony attend un tableau de rôles
+        // Transformation du rôle unique en format attendu par Symfony
+        return match ($this->role) {
+            'admin' => ['ROLE_ADMIN'],
+            'formateur' => ['ROLE_FORMATEUR'],
+            'membre' => ['ROLE_MEMBRE'],
+            default => ['ROLE_USER'],
+        };
     }
 
     public function getUserIdentifier(): string

@@ -119,7 +119,7 @@ class UtilisateurType extends AbstractType
                     new Assert\Email(['message' => 'Veuillez entrer une adresse email valide.']),
                 ],
             ])
-            ->add('mdp', PasswordType::class, [
+            ->add('password', PasswordType::class, [
                 'constraints' => [
                     new Assert\NotBlank(['message' => 'Le mot de passe est obligatoire.']),
                     new Assert\Length([
