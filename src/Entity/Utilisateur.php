@@ -59,6 +59,12 @@ class Utilisateur implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updateAt = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $numTlfn = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -247,5 +253,29 @@ class Utilisateur implements PasswordAuthenticatedUserInterface, UserInterface
     public function eraseCredentials(): void
     {
         // Nettoyer les données sensibles après l'authentification
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getNumTlfn(): ?string
+    {
+        return $this->numTlfn;
+    }
+
+    public function setNumTlfn(string $numTlfn): static
+    {
+        $this->numTlfn = $numTlfn;
+
+        return $this;
     }
 }

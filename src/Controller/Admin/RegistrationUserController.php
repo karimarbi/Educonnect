@@ -50,8 +50,8 @@ class RegistrationUserController extends AbstractController
             }
 
             // Hash du mot de passe avant de l'enregistrer
-            $hashedPassword = $passwordHasher->hashPassword($utilisateur, $utilisateur->getMdp());
-            $utilisateur->setMdp($hashedPassword);
+            $hashedPassword = $passwordHasher->hashPassword($utilisateur, $utilisateur->getPassword());
+            $utilisateur->setPassword($hashedPassword);
 
             // Si ce n'est pas un formateur, on ne garde pas la spécialité ni le salaire
             if ($utilisateur->getRole() !== 'formateur') {

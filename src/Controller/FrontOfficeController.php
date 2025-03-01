@@ -13,6 +13,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Entity\Utilisateur;
+use App\Form\MembreInscriptionType;
 
 final class FrontOfficeController extends AbstractController
 {
@@ -63,4 +66,33 @@ final class FrontOfficeController extends AbstractController
             'types' => $types,
         ]);
     }
+
+    #[Route('/inscriptionMembre', name: 'app_inscription_front', methods: ['GET', 'POST'])]
+    public function inscription(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $utilisateur = new Utilisateur();
+        $form = $this->createForm(MembreInscriptionType::class, $utilisateur);
+    
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Hacher le mot de passe
+            $hashedPassword = $passwordHasher->hashPassword($utilisateur, $utilisateur->getPassword());
+    
+            $utilisateur->setPassword($hashedPassword);
+    
+            // Définir le rôle par défaut
+            $utilisateur->setRole('membre');
+    
+            // Sauvegarder en base de données
+            $entityManager->persist($utilisateur);
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('app_login');
+        }
+    
+        return $this->render('registration/Front_inscription.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    
 }
