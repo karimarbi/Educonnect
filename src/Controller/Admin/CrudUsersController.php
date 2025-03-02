@@ -11,18 +11,39 @@ use Symfony\Component\HttpFoundation\Response;
 use Knp\Snappy\Pdf;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\UtilisateurType;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 #[Route('/admin')]
 class CrudUsersController extends AbstractController
 {
     #[Route('/utilisateurs', name: 'list_utilisateurs', methods: ['GET'])]
-    public function list(EntityManagerInterface $entityManager): Response
+    public function list(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
-        $utilisateurs = $entityManager->getRepository(Utilisateur::class)->findAll();
-
+        $search = $request->query->get('search', '');
+    
+        $queryBuilder = $entityManager->getRepository(Utilisateur::class)->createQueryBuilder('u');
+    
+        if (!empty($search)) {
+            $queryBuilder->where('u.nom LIKE :search')
+                         ->orWhere('u.prenom LIKE :search')
+                         ->orWhere('u.email LIKE :search')
+                         ->orWhere('u.cin LIKE :search') // Recherche aussi par CIN
+                         ->setParameter('search', '%'.$search.'%');
+        }
+    
+        $query = $queryBuilder->getQuery();
+    
+        // Paginer les résultats
+        $utilisateurs = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1), // Page actuelle
+            10 // Nombre d'éléments par page
+        );
+    
         return $this->render('users_list/users_list.html.twig', [
             'utilisateurs' => $utilisateurs,
+            'search' => $search,
         ]);
     }
 

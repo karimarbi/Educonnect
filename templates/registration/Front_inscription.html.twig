@@ -1,96 +1,140 @@
-{% extends 'front_office/index.html.twig' %}
+<!DOCTYPE html>
+<html lang="fr">
 
-{% block title %}Inscription Membre{% endblock %}
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Inscription Membre - EduConnect</title>
 
-{% block body %}
-    <div class="container mt-4">
-        <h1 class="mb-4 text-center">Inscription Membre</h1>
+    <!-- Favicons -->
+    <link href="/assetsFront/assets/img/favicon.png" rel="icon">
+    <link href="/assetsFront/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-        {# Affichage des messages flash (succès / erreur) #}
-        {% for message in app.flashes('danger') %}
-            <div class="alert alert-danger">{{ message }}</div>
-        {% endfor %}
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
+    <!-- Vendor CSS Files -->
+    <link href="/assetsFront/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assetsFront/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assetsFront/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/assetsFront/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/assetsFront/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-        {{ form_start(form, {'attr': {'class': 'form', 'novalidate': 'novalidate', 'data-turbo': 'false'}}) }}
+    <!-- Main CSS File -->
+    <link href="/assetsFront/assets/css/main.css" rel="stylesheet">
+</head>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    {{ form_label(form.nom) }}
-                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.nom) }}
-                </div>
+<body class="inscription-page">
+<header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+        <a href="{{ path('app_front_office') }}" class="logo d-flex align-items-center me-auto">
+            <h1 class="sitename">EduConnect</h1>
+        </a>
 
-                <div class="form-group">
-                    {{ form_label(form.prenom) }}
-                    {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.prenom) }}
-                </div>
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <li><a href="{{ path('app_front_office') }}">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="{{ path('app_inscription_front') }}" class="active">Inscription</a></li>
+                <li><a href="{{ path('app_event_index_front') }}">Events</a></li>
+                <li><a href="{{ path('app_test_index_front') }}">Tests</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+    </div>
+</header>
 
-                <div class="form-group">
-                    {{ form_label(form.cin) }}
-                    {{ form_widget(form.cin, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.cin) }}
-                </div>
+<main class="main">
+    <!-- Section d'Inscription -->
+    <section id="inscription" class="inscription section">
+        <div class="container" data-aos="fade-up">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-lg border-0 rounded">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h3 class="mb-0">Inscription Membre</h3>
+                        </div>
+                        <div class="card-body">
 
-                <div class="form-group">
-                    {{ form_label(form.age) }}
-                    {{ form_widget(form.age, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.age) }}
-                </div>
+                            {# Vérification si le formulaire est bien reçu #}
+                            {% if form is not defined %}
+                                <div class="alert alert-danger text-center">⚠️ Le formulaire ne s'affiche pas !</div>
+                            {% endif %}
 
-                <div class="form-group">
-                    {{ form_label(form.dateNai) }}
-                    {{ form_widget(form.dateNai, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.dateNai) }}
-                </div>
+                            {# Affichage des messages flash #}
+                            {% for message in app.flashes('danger') %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
 
-                <div class="form-group">
-                    {{ form_label(form.adresse) }}
-                    {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.adresse) }}
-                </div>
-            </div>
+                            {% for message in app.flashes('success') %}
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    {{ form_label(form.lieu) }}
-                    {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.lieu) }}
-                </div>
+                            {# Début du formulaire #}
+                            {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
 
-                <div class="form-group">
-                    {{ form_label(form.email) }}
-                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.email) }}
-                </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_row(form.nom) }}
+                                    {{ form_row(form.prenom) }}
+                                    {{ form_row(form.cin) }}
+                                    {{ form_row(form.age) }}
+                                    {{ form_row(form.dateNai) }}
+                                </div>
 
-                <div class="form-group">
-                    {{ form_label(form.password) }}
-                    {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.password) }}
-                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(form.email) }}
 
-                <div class="form-group">
-                    {{ form_label(form.numtlfn) }}
-                    {{ form_widget(form.numtlfn, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.numtlfn) }}
-                </div>
+                                    {# Vérifier si le champ de mot de passe est bien `password` ou `plainPassword` #}
+                                    {% if form.password is defined %}
+                                        {{ form_row(form.password) }}
+                                    {% elseif form.plainPassword is defined %}
+                                        {{ form_row(form.plainPassword) }}
+                                    {% else %}
+                                        <div class="alert alert-danger">⚠️ Champ mot de passe manquant</div>
+                                    {% endif %}
 
-                <div class="form-group">
-                    {{ form_label(form.image) }}
-                    {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.image) }}
+                                    {{ form_row(form.numtlfn) }}
+                                    {{ form_row(form.image) }}
+                                </div>
+                            </div>
+
+                            {# Bouton d'inscription #}
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-success mt-3">
+                                    <i class="bi bi-person-plus"></i> S'inscrire
+                                </button>
+                            </div>
+
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+</main>
 
-        <button type="submit" class="btn btn-primary mt-3">S'inscrire</button>
-
-        {{ form_end(form) }}
+<footer id="footer" class="footer">
+    <div class="container text-center">
+        <p>© 2025 - EduConnect. Tous droits réservés.</p>
     </div>
-{% endblock %}
+</footer>
+
+<!-- Vendor JS Files -->
+<script src="/assetsFront/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assetsFront/assets/vendor/aos/aos.js"></script>
+<script src="/assetsFront/assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="/assetsFront/assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/assetsFront/assets/js/main.js"></script>
+
+</body>
+</html>

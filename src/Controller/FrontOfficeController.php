@@ -89,7 +89,7 @@ final class FrontOfficeController extends AbstractController
     
             return $this->redirectToRoute('app_login');
         }
-    
+        dump($form->createView()); die;
         return $this->render('registration/Front_inscription.html.twig', [
             'form' => $form->createView(),
         ]);
