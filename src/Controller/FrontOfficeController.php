@@ -16,7 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\Utilisateur;
 use App\Form\MembreInscriptionType;
-
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Message\SmsMessage;
+use Symfony\Component\Notifier\TexterInterface;
 final class FrontOfficeController extends AbstractController
 {
     // Route pour la page d'accueil
@@ -68,7 +70,7 @@ final class FrontOfficeController extends AbstractController
     }
 
     #[Route('/inscriptionMembre', name: 'app_inscription_front', methods: ['GET', 'POST'])]
-    public function inscription(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function inscription(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, TexterInterface $texter): Response
     {
         $utilisateur = new Utilisateur();
         $form = $this->createForm(MembreInscriptionType::class, $utilisateur);
@@ -77,7 +79,6 @@ final class FrontOfficeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Hacher le mot de passe
             $hashedPassword = $passwordHasher->hashPassword($utilisateur, $utilisateur->getPassword());
-    
             $utilisateur->setPassword($hashedPassword);
     
             // Définir le rôle par défaut
@@ -86,13 +87,23 @@ final class FrontOfficeController extends AbstractController
             // Sauvegarder en base de données
             $entityManager->persist($utilisateur);
             $entityManager->flush();
+            
+            if ($utilisateur->getNumtlfn()) {
+                $sms = new SmsMessage(
+                    $utilisateur->getNumtlfn(), // Numéro du membre
+                    'Bonjour ' . $utilisateur->getPrenom() . ', votre inscription sur EduConnect a été réussie ! 🎉'
+                );
     
-            return $this->redirectToRoute('app_login');
+                $texter->send($sms); // ✅ Envoi correct via TexterInterface
+            }
+    
+            // Redirection après l'inscription (ajout du point-virgule)
+            return $this->redirectToRoute('app_inscription_front');
         }
-        dump($form->createView()); die;
+    
         return $this->render('registration/Front_inscription.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-    
 }
+    

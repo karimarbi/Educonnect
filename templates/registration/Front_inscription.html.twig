@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Inscription Membre - EduConnect</title>
+    <title>Inscription - EduConnect</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
 
     <!-- Favicons -->
     <link href="/assetsFront/assets/img/favicon.png" rel="icon">
@@ -16,21 +18,15 @@
     <!-- Vendor CSS Files -->
     <link href="/assetsFront/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assetsFront/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="/assetsFront/assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="/assetsFront/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="/assetsFront/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-    <!-- Main CSS File -->
     <link href="/assetsFront/assets/css/main.css" rel="stylesheet">
 </head>
 
-<body class="inscription-page">
+<body>
 <header id="header" class="header d-flex align-items-center sticky-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center">
-        <a href="{{ path('app_front_office') }}" class="logo d-flex align-items-center me-auto">
+    <div class="container-fluid container-xl d-flex align-items-center">
+        <a href="index.html" class="logo d-flex align-items-center me-auto">
             <h1 class="sitename">EduConnect</h1>
         </a>
-
         <nav id="navmenu" class="navmenu">
             <ul>
                 <li><a href="{{ path('app_front_office') }}">Home</a></li>
@@ -47,75 +43,42 @@
 </header>
 
 <main class="main">
-    <!-- Section d'Inscription -->
-    <section id="inscription" class="inscription section">
+    <div class="page-title" data-aos="fade">
+        <div class="heading">
+            <div class="container text-center">
+                <h1>Inscription</h1>
+                <p class="mb-4 text-muted fs-5">Rejoignez notre plateforme et accédez à une multitude de formations et d'événements.</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="section registration">
         <div class="container" data-aos="fade-up">
             <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="card shadow-lg border-0 rounded">
-                        <div class="card-header bg-primary text-white text-center">
-                            <h3 class="mb-0">Inscription Membre</h3>
-                        </div>
-                        <div class="card-body">
-
-                            {# Vérification si le formulaire est bien reçu #}
-                            {% if form is not defined %}
-                                <div class="alert alert-danger text-center">⚠️ Le formulaire ne s'affiche pas !</div>
-                            {% endif %}
-
-                            {# Affichage des messages flash #}
-                            {% for message in app.flashes('danger') %}
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    {{ message }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            {% endfor %}
-
-                            {% for message in app.flashes('success') %}
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    {{ message }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            {% endfor %}
-
-                            {# Début du formulaire #}
-                            {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {{ form_row(form.nom) }}
-                                    {{ form_row(form.prenom) }}
-                                    {{ form_row(form.cin) }}
-                                    {{ form_row(form.age) }}
-                                    {{ form_row(form.dateNai) }}
-                                </div>
-
-                                <div class="col-md-6">
-                                    {{ form_row(form.email) }}
-
-                                    {# Vérifier si le champ de mot de passe est bien `password` ou `plainPassword` #}
-                                    {% if form.password is defined %}
-                                        {{ form_row(form.password) }}
-                                    {% elseif form.plainPassword is defined %}
-                                        {{ form_row(form.plainPassword) }}
-                                    {% else %}
-                                        <div class="alert alert-danger">⚠️ Champ mot de passe manquant</div>
-                                    {% endif %}
-
-                                    {{ form_row(form.numtlfn) }}
-                                    {{ form_row(form.image) }}
-                                </div>
+                <div class="col-md-8">
+                    <div class="card p-4 shadow-lg">
+                        {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
                             </div>
-
-                            {# Bouton d'inscription #}
-                            <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-success mt-3">
-                                    <i class="bi bi-person-plus"></i> S'inscrire
-                                </button>
+                            <div class="col-md-6 mb-3">
+                                {{ form_row(form.prenom, {'attr': {'class': 'form-control'}}) }}
                             </div>
-
-                            {{ form_end(form) }}
                         </div>
+                        {{ form_row(form.cin, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(form.age, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(form.dateNai, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(form.adresse, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(form.lieu, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(form.numtlfn, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(form.image, {'attr': {'class': 'form-control'}}) }}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
+                        </div>
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
@@ -125,16 +88,12 @@
 
 <footer id="footer" class="footer">
     <div class="container text-center">
-        <p>© 2025 - EduConnect. Tous droits réservés.</p>
+        <p>&copy; 2025 EduConnect. Tous droits réservés.</p>
     </div>
 </footer>
 
 <!-- Vendor JS Files -->
 <script src="/assetsFront/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/assetsFront/assets/vendor/aos/aos.js"></script>
-<script src="/assetsFront/assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="/assetsFront/assets/vendor/swiper/swiper-bundle.min.js"></script>
 <script src="/assetsFront/assets/js/main.js"></script>
-
 </body>
 </html>

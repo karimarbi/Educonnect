@@ -54,19 +54,17 @@ final class BackOfficeController extends AbstractController
             'types' => $types,
         ]);
     }
+    #[Route('/gestion_inscriptions_membres', name: 'app_gestion_inscriptions_membres', methods: ['GET'])]
+public function gestionInscriptionsMembres(UtilisateurRepository $utilisateurRepository): Response
+{
+    // Récupération des utilisateurs ayant le rôle "membre"
+    $membres = $utilisateurRepository->findBy(['role' => 'membre']);
+
+    return $this->render('users_list/membre_list.html.twig', [
+        'membres' => $membres,
+    ]);
+}
+
     
-     // Integration gestion user backOffice
-     #[Route('/gestion_user', name: 'app_gestion_user', methods: ['GET'])]
-     public function gestionUser(UtilisateurRepository $userRepository): Response
-     {
-         // Récupération des utilisateues via les repositories
-         $users = $userRepository->findAll();
-         // Rendu du template gestion_user.html.twig 
-         return $this->render('back_office/gestion_user.html.twig', [
-             'users' => $users,
-            
-         ]);
-     }
-
-
+     
 }
