@@ -1,24 +1,38 @@
 
-
 {% block title %}Test Index{% endblock %}
 
 {% block body %}
     <div class="container-fluid py-2">
         <div class="row">
             <div class="col-12">
+                <!-- Active Tests Table -->
                 <div class="card my-4">
-                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                        <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                            <h6 class="text-white text-capitalize ps-3">Test Table</h6>
-                        </div>
+                    <div class="card-header bg-gradient-dark text-white border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">Active Tests</h6>
                     </div>
                     <div class="card-body px-0 pb-2">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="card bg-primary text-white p-3">
+                                    <h5>Total Number of Tests</h5>
+                                    <h3>{{ tests|length }}</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card bg-success text-white p-3">
+                                    <h5>Average Test Time</h5>
+                                    {% set total_time = tests|map(t => t.heuredutest)|reduce((carry, item) => carry + item, 0) %}
+                                    {% set avg_time = (total_time / (tests|length)|default(1)) %}
+                                    <h3>{{ avg_time|round(2) }} hours</h3>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">
                                 <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
-
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Matière</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Heure du Test</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom du Formateur</th>
@@ -31,7 +45,6 @@
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">{{ test.id }}</span>
                                         </td>
-
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">{{ test.matiere }}</span>
                                         </td>
@@ -42,33 +55,121 @@
                                             <span class="text-secondary text-xs font-weight-bold">{{ test.nomduformateur }}</span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <div class="ms-auto text-end">
-                                                <a class="btn btn-primary text-white px-3 mb-0" href="{{ path('app_test_show', {'id': test.id}) }}">
-                                                    <i class="material-symbols-rounded text-sm me-2">visibility</i> Show
-                                                </a>
-                                                <a class="btn btn-warning text-dark px-3 mb-0" href="{{ path('app_test_edit', {'id': test.id}) }}">
-                                                    <i class="material-symbols-rounded text-sm me-2">edit</i> Edit
-                                                </a>
-                                            </div>
+                                            <a class="btn btn-primary text-white px-3 mb-0" href="{{ path('app_test_show', {'id': test.id}) }}">
+                                                <i class="material-symbols-rounded text-sm me-2">visibility</i> Show
+                                            </a>
+                                            <a class="btn btn-warning text-dark px-3 mb-0" href="{{ path('app_test_edit', {'id': test.id}) }}">
+                                                <i class="material-symbols-rounded text-sm me-2">edit</i> Edit
+                                            </a>
                                         </td>
                                     </tr>
                                 {% else %}
                                     <tr>
-                                        <td colspan="6" class="text-center">No records found</td>
+                                        <td colspan="5" class="text-center">No active tests found</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
                             </table>
                         </div>
-                        <!-- Bouton "Create New" stylisé -->
-                        <div class="text-end mt-4">
-                            <a href="{{ path('app_test_new') }}" class="btn btn-success text-white px-4 py-2">
-                                <i class="material-symbols-rounded text-sm me-2">add_circle</i> Create New Test
-                            </a>
+                    </div>
+                </div>
+
+                <!-- Deleted Tests Table -->
+                <div class="card my-4">
+                    <div class="card-header bg-danger text-white border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">Deleted Tests</h6>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Matière</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for test in deleted_tests %}
+                                    <tr>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">{{ test.id }}</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">{{ test.matiere }}</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <form method="post" action="{{ path('app_test_restore', {'id': test.id}) }}">
+                                                <button type="submit" class="btn btn-success btn-sm">
+                                                    <i class="material-symbols-rounded text-sm me-2">restore</i> Restore
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+
+
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3" class="text-center">No deleted tests</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
+
+                <!-- Create New Test Button -->
+                <div class="text-end mt-4">
+                    <a href="{{ path('app_test_new') }}" class="btn btn-success text-white px-4 py-2">
+                        <i class="material-symbols-rounded text-sm me-2">add_circle</i> Create New Test
+                    </a>
+                </div>
+
+                <!-- Test Chart -->
+                <div class="chart-container mt-4" style="position: relative; height:40vh; width:80vw">
+                    <canvas id="testChart"></canvas>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Chart.js for Test Statistics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var ctx = document.getElementById('testChart').getContext('2d');
+            var testChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [{% for test in tests %}'{{ test.matiere }}',{% endfor %}],
+                    datasets: [{
+                        label: 'Test Duration (hours)',
+                        data: [{% for test in tests %}{{ test.heuredutest }},{% endfor %}],
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        hoverBackgroundColor: 'rgba(54, 162, 235, 1)',
+                        hoverBorderColor: 'rgba(54, 162, 235, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Hours' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Subjects' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: true, position: 'top' }
+                    }
+                }
+            });
+        });
+    </script>
 {% endblock %}

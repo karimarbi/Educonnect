@@ -20,7 +20,7 @@ class Categorie
     #[ORM\Column(length: 255)] 
     #[Assert\NotBlank(message: "Le nom de catégorie est obligatoire.")]
     #[Assert\Length(
-        min: 5,
+        min: 3,
         max: 25,
         minMessage: "Le nom de catégorie doit contenir au moins {{ limit }} caractères.",
         maxMessage: "Le nom de catégorie ne peut pas dépasser {{ limit }} caractères."

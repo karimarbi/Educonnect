@@ -1,0 +1,12 @@
+
+{% block title %} Inscription à l'événement {% endblock %}
+
+{% block body %}
+    <h2>Inscription à l'événement</h2>
+    <p>Merci de vous inscrire pour cet événement.</p>
+
+    <form method="POST" action="{{ path('app_event_register', {'id': eventId}) }}">
+        <input type="text" name="name" value="John Doe" readonly>
+        <button type="submit">S'inscrire</button>
+    </form>
+{% endblock %}

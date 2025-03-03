@@ -41,6 +41,9 @@ class Utilisateur
 #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'utilisateur', cascade: ['remove'])]
 private Collection $inscriptions;
 
+#[ORM\Column]
+private ?int $numTlfn = null;
+
 public function __construct()
 {
     $this->inscriptions = new ArrayCollection();
@@ -68,6 +71,18 @@ public function removeInscription(Inscription $inscription): static
             $inscription->setUtilisateur(null);
         }
     }
+
+    return $this;
+}
+
+public function getNumTlfn(): ?int
+{
+    return $this->numTlfn;
+}
+
+public function setNumTlfn(int $numTlfn): static
+{
+    $this->numTlfn = $numTlfn;
 
     return $this;
 }

@@ -39,23 +39,6 @@ class CoursController extends AbstractController
         ]);
     }
 
-    // #[Route('/front', name: 'app_cours_indexf', methods: ['GET'])]
-    // public function indexf(CoursRepository $coursRepository, InscriptionRepository $inscriptionRepository,PaginatorInterface $paginator): Response
-    // {
-    //     // Récupérer tous les cours
-    //     $cours = $coursRepository->findAll();
-
-    //     // Récupérer le nombre d'inscriptions pour chaque cours
-    //     foreach ($cours as $cour) {
-    //         $inscriptionCount = $inscriptionRepository->countInscriptionsForCours($cour);
-    //         $cour->setInscriptionCount($inscriptionCount);
-    //     }
-
-    //     return $this->render('cours/indexf.html.twig', [
-    //         'cours' => $cours,
-    //     ]);
-    // }// src/Controller/CoursController.php
-
     #[Route('/front', name: 'app_cours_indexf', methods: ['GET'])]
     public function indexf(
         Request $request,
@@ -72,7 +55,7 @@ class CoursController extends AbstractController
         $pagination = $this->paginator->paginate(
             $query,
             $page,
-            6 // Nombre de résultats par page
+            3 // Nombre de résultats par page
         );
 
         // Ajouter le nombre d'inscriptions pour chaque cours

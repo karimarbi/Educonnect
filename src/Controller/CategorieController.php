@@ -10,10 +10,55 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 #[Route('/categorie')]
 class CategorieController extends AbstractController
 {
+
+
+
+
+
+
+    #[Route('/export-categories', name: 'app_categorie_export')]
+    public function exportCategories(EntityManagerInterface $entityManager): Response
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // En-têtes de colonnes
+        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('B1', 'Nom de la Catégorie');
+
+        // Récupérer les catégories depuis la base de données
+        $categories = $entityManager->getRepository(Categorie::class)->findAll();
+        
+        $row = 2;
+        foreach ($categories as $category) {
+            $sheet->setCellValue('A' . $row, $category->getId());
+            $sheet->setCellValue('B' . $row, $category->getNomCategorie());
+            $row++;
+        }
+
+        // Créer le fichier Excel
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'categories.xlsx';
+
+        // Réponse HTTP avec le fichier Excel en téléchargement
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $fileName . '"');
+
+        ob_start();
+        $writer->save('php://output');
+        $content = ob_get_clean();
+        $response->setContent($content);
+
+        return $response;
+    }
+
+
     #[Route('/', name: 'app_categorie_index', methods: ['GET'])]
     public function index(CategorieRepository $categorieRepository): Response
     {
@@ -87,4 +132,5 @@ class CategorieController extends AbstractController
 
         return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
     }
+    
 }

@@ -15,6 +15,17 @@ class TestRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Test::class);
     }
+    public function countTestsByType(): array
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t.type as type, COUNT(t.id) as count')
+            ->groupBy('t.type')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
 
     //    /**
     //     * @return Test[] Returns an array of Test objects

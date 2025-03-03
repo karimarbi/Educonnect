@@ -1,0 +1,13 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block title %}Back Office{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-dark mb-4" style="font-size: 2.5rem; font-weight: 700; border-bottom: 2px solid #333; padding-bottom: 10px;">Registration Form</h1>
+        {% include 'registration/inscription.html.twig' %}
+
+        <h1 class="text-dark mb-4" style="font-size: 2.5rem; font-weight: 700; border-bottom: 2px solid #333; padding-bottom: 10px;">Users Table</h1>
+        {% include 'users_list/users_list.html.twig' %}
+    </div>
+{% endblock %}
