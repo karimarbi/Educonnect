@@ -1,0 +1,73 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block title %}Event Details{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-dark mb-4" style="font-size: 2.5rem; font-weight: 700;">Event Details</h1>
+
+        <div class="card shadow-lg border-0 rounded">
+            <div class="card-body">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                    <tr>
+                        <th class="text-nowrap">Id Evenement</th>
+                        <td>{{ event.id }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-nowrap">Titre</th>
+                        <td>{{ event.titre }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-nowrap">Date Début</th>
+                        <td>{{ event.dateDebut ? event.dateDebut|date('Y-m-d H:i:s') : 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-nowrap">Date Fin</th>
+                        <td>{{ event.dateFin ? event.dateFin|date('Y-m-d H:i:s') : 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-nowrap">Lieu</th>
+                        <td>{{ event.lieu }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-nowrap">Description</th>
+                        <td>{{ event.description }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-nowrap">Durée</th>
+                        <td>{{ event.duree }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-nowrap">Nombre Max Participants</th>
+                        <td>{{ event.nombreMaxParticipants }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-nowrap">Image</th>
+                        <td>
+                            {% if event.image %}
+                                <img src="{{ asset('uploads/' ~ event.image) }}" alt="Image de l'événement" class="img-thumbnail" width="150">
+                            {% else %}
+                                <span class="text-secondary">No image available</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!-- Action Buttons -->
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{{ path('app_gestion_event') }}" class="btn btn-secondary text-white">
+                        <i class="material-symbols-rounded me-2">arrow_back</i> Back to List
+                    </a>
+                    <div class="d-flex">
+                        <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn btn-warning text-white me-3">
+                            <i class="material-symbols-rounded me-2">edit</i> Edit
+                        </a>
+                        {{ include('event/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

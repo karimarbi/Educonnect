@@ -1,0 +1,55 @@
+<style>
+    body {
+        font-family: DejaVu Sans, sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+    }
+
+    /* Different colors for each header */
+    th:nth-child(1) { background-color: #ff5733; color: white; } /* ID - Red */
+    th:nth-child(2) { background-color: #3498db; color: white; } /* Matière - Blue */
+    th:nth-child(3) { background-color: #f39c12; color: white; } /* Heure - Orange */
+    th:nth-child(4) { background-color: #27ae60; color: white; } /* Formateur - Green */
+
+    /* Alternate row colors */
+    tr:nth-child(even) { background-color: #f9f9f9; }
+    tr:nth-child(odd) { background-color: #ffffff; }
+</style>
+
+<h2>Liste des Tests</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Matière</th>
+        <th>Heure du Test</th>
+        <th>Nom du Formateur</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for test in tests %}
+        <tr>
+            <td>{{ test.id }}</td>
+            <td>{{ test.matiere }}</td>
+            <td>{{ test.heuredutest }}</td>
+            <td>{{ test.nomduformateur }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,19 @@
+{# {{ form_start(form) }}
+    {{ form_widget(form) }}
+            <br>
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }} #}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+<div class="form-group">
+    {{ form_label(form.nomCategorie, 'Nom de la Catégorie', {'attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.nomCategorie, {'attr': {'class': 'form-control'}}) }}
+    <div class="text-danger">
+        {{ form_errors(form.nomCategorie) }}
+    </div>
+</div>
+
+<button type="submit" class="btn btn-primary">Ajouter</button>
+
+{{ form_end(form) }}

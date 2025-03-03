@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Type Details{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg border-0 rounded">
+                    <div class="card-header bg-dark text-white text-center">
+                        <h3 class="mb-0">Type Details</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <th class="bg-light">Id</th>
+                                <td>{{ type.id }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">Mode</th>
+                                <td>{{ type.mode }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Action Buttons -->
+                        <div class="text-center mt-4">
+                            <a href="{{ path('app_gestion_test') }}" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm">
+                                <i class="material-symbols-rounded text-sm me-2">arrow_back</i> Back to list
+                            </a>
+                            <a href="{{ path('app_type_edit', {'id': type.id}) }}" class="btn btn-warning text-dark px-4 py-2 rounded-pill shadow-sm">
+                                <i class="material-symbols-rounded text-sm me-2">edit</i> Edit
+                            </a>
+                        </div>
+
+                        <!-- Delete Form -->
+                        <div class="text-center mt-4">
+                            {{ include('type/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

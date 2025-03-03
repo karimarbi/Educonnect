@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Test{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg border-0 rounded">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3 class="mb-0">Edit Test</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Form for editing test -->
+                        {{ include('test/_form.html.twig', {'button_label': 'Update'}) }}
+
+                        <!-- Back to the test list -->
+                        <div class="text-center mt-4">
+                            <a href="{{ path('app_gestion_test') }}" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm">Back to list</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

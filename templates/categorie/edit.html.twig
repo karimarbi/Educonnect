@@ -1,0 +1,43 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block title %}Edit Categorie{% endblock %}
+
+{% block body %}
+    <h1>Edit Categorie</h1>
+
+  {% for message in app.flashes('danger') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    {# Start the form with the novalidate attribute to disable HTML5 validation #}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+    {# Display global form errors #}
+    <div class="text-danger">
+        {{ form_errors(form) }}
+    </div>
+
+    {# Loop through the form fields #}
+    {% for field in form %}
+        {% if field.vars.name != '_token' %}
+            <div class="form-group mb-3">
+                {{ form_label(field, null, {'attr': {'class': 'form-label'}}) }}
+                {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
+                <div class="text-danger">
+                    {{ form_errors(field) }}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+    
+    <button type="submit" class="btn btn-primary">Edit</button>
+
+    {{ form_end(form) }}
+
+    {{ include('categorie/_delete_form.html.twig') }}
+    <a class="btn" href="{{ path('app_categorie_index') }}">back to list</a>
+
+{% endblock %}

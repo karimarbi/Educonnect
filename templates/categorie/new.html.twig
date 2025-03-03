@@ -1,0 +1,49 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block title %}Ajouter une catégorie{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded">
+                <div class="card-header" style="background-color: #464343; color: white; text-align: center; box-shadow: 0 4px 8px rgba(222,222,222,0.2);">
+                    <h3 class="mb-0" style="font-family: 'Arial', sans-serif; font-weight: 600;">Ajouter une Catégorie</h3>
+                </div>
+
+                <div class="card-body">
+                    {# Flash messages for success and error #}
+                    {% for message in app.flashes('danger') %}
+                        <div class="alert alert-danger">{{ message }}</div>
+                    {% endfor %}
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
+
+                    {# Start the form with novalidate to disable HTML5 validation #}
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                    {# Display global form errors #}
+                    <div class="text-danger">
+                        {{ form_errors(form) }}
+                    </div>
+
+                    {# Loop through the form fields with improved design #}
+                    <div class="mb-3">
+                        {{ form_label(form.nomCategorie, 'Nom de la catégorie', {'label_attr': {'class': 'fw-bold form-label'}}) }}
+                        {{ form_widget(form.nomCategorie, {'attr': {'class': 'form-control rounded-pill shadow-sm', 'placeholder': 'Entrez le nom de la catégorie'}}) }}
+                        {{ form_errors(form.nomCategorie) }}
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success px-4 py-2 rounded-pill shadow-sm">Ajouter</button>
+                        <a href="{{ path('app_categorie_index') }}" class="btn btn-secondary px-4 py-2 rounded-pill shadow-sm">Retour à la liste</a>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
