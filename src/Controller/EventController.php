@@ -6,12 +6,19 @@ use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Endroid\QrCode\Label\Font\Font;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\Writer\PngWriter;
+
+
 
 #[Route('/event')]
 final class EventController extends AbstractController
@@ -110,6 +117,42 @@ final class EventController extends AbstractController
             'event' => $event,
         ]);
     }
+
+    #[Route('/register/{id}', name: 'app_event_register', methods: ['GET', 'POST'])]
+    public function register($id, EntityManagerInterface $em): Response
+    {
+        $event = $em->getRepository(Event::class)->find($id);
+
+        if (!$event) {
+            throw $this->createNotFoundException("L'événement n'existe pas.");
+        }
+
+        if ($event->getNombreMaxParticipants() > 0) {
+            $event->setNombreMaxParticipants($event->getNombreMaxParticipants() - 1);
+            $em->persist($event);
+            $em->flush();
+
+            // ✅ Corrected QR Code Generation for Endroid QR Code v6
+            $qrCode = new QrCode(
+                "Titre: {$event->getTitre()}\n"
+                . "Date: {$event->getDateDebut()->format('Y-m-d')} - {$event->getDateFin()->format('Y-m-d')}\n"
+                . "Lieu: {$event->getLieu()}\n"
+                . "Description: {$event->getDescription()}"
+            );
+
+            // ✅ Generate QR code as an image
+            $writer = new PngWriter();
+            $result = $writer->write($qrCode);
+
+            return new Response($result->getString(), 200, [
+                'Content-Type' => 'image/png',
+            ]);
+        } else {
+            $this->addFlash('error', "Plus de places disponibles pour cet événement.");
+            return $this->redirectToRoute('app_event_index_front');
+        }
+    }
+
 }
 
 

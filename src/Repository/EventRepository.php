@@ -16,6 +16,15 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    public function countEventsByCategory(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->select('c.name as category, COUNT(e.id) as count')
+            ->join('e.category', 'c')
+            ->groupBy('c.name')
+            ->getQuery()
+            ->getResult();
+    }
 
     //    /**
     //     * @return Event[] Returns an array of Event objects

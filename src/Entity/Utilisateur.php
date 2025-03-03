@@ -1,16 +1,13 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-class Utilisateur implements PasswordAuthenticatedUserInterface, UserInterface
+class Utilisateur
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,7 +20,7 @@ class Utilisateur implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 255,unique:true)]
     private ?string $cin = null;
 
     #[ORM\Column]
@@ -38,11 +35,11 @@ class Utilisateur implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(length: 255)]
     private ?string $lieu = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 255,unique:true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $password = null; // Mot de passe (correction du champ)
+    private ?string $mdp = null;
 
     #[ORM\Column(length: 255)]
     private ?string $role = null;
@@ -59,23 +56,14 @@ class Utilisateur implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updateAt = null;
 
+    // Constructor to initialize createdAt to the current time
     public function __construct()
     {
+        // Set createdAt to the current datetime
         $this->createdAt = new \DateTimeImmutable();
     }
 
-    // Implémentation correcte de getPassword() pour Symfony Security
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-        return $this;
-    }
-
+    // Getter and Setter methods
     public function getId(): ?int
     {
         return $this->id;
@@ -169,6 +157,17 @@ class Utilisateur implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
+    public function getMdp(): ?string
+    {
+        return $this->mdp;
+    }
+
+    public function setMdp(string $mdp): static
+    {
+        $this->mdp = $mdp;
+        return $this;
+    }
+
     public function getRole(): ?string
     {
         return $this->role;
@@ -225,27 +224,5 @@ class Utilisateur implements PasswordAuthenticatedUserInterface, UserInterface
     {
         $this->updateAt = $updateAt;
         return $this;
-    }
-
-    // Implémentation correcte de getRoles() pour Symfony Security
-    public function getRoles(): array
-    {
-        // Transformation du rôle unique en format attendu par Symfony
-        return match ($this->role) {
-            'admin' => ['ROLE_ADMIN'],
-            'formateur' => ['ROLE_FORMATEUR'],
-            'membre' => ['ROLE_MEMBRE'],
-            default => ['ROLE_USER'],
-        };
-    }
-
-    public function getUserIdentifier(): string
-    {
-        return $this->email;
-    }
-
-    public function eraseCredentials(): void
-    {
-        // Nettoyer les données sensibles après l'authentification
     }
 }

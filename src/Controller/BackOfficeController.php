@@ -44,16 +44,23 @@ final class BackOfficeController extends AbstractController
         TestRepository $testRepository,
         TypeRepository $typetestRepository
     ): Response {
-        // Récupération des tests et des types de tests via les repositories
-        $tests = $testRepository->findAll();  // Fetch all tests
-        $types = $typetestRepository->findAll();  // Fetch all types of tests
+        // Fetch non-deleted tests
+        $tests = $testRepository->findBy(['isDeleted' => false]);
 
-        // Rendu du template gestion_test.html.twig avec les tests et les types de tests
+        // Fetch deleted tests separately
+        $deletedTests = $testRepository->findBy(['isDeleted' => true]);
+
+        // Fetch all types of tests
+        $types = $typetestRepository->findAll();
+
+        // Render the gestion_test template with the retrieved data
         return $this->render('back_office/gestion_test.html.twig', [
             'tests' => $tests,
+            'deleted_tests' => $deletedTests,
             'types' => $types,
         ]);
     }
+
     
      // Integration gestion user backOffice
      #[Route('/gestion_user', name: 'app_gestion_user', methods: ['GET'])]

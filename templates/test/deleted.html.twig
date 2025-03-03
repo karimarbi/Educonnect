@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Deleted Tests{% endblock %}
+
+{% block body %}
+    <h2>Deleted Tests</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Matière</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for test in deleted_tests %}
+            <tr>
+                <td>{{ test.id }}</td>
+                <td>{{ test.matiere }}</td>
+                <td>
+                    <form method="post" action="{{ path('app_test_restore', {'id': test.id}) }}">
+                        <button type="submit" class="btn btn-success">Restore</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="3">No deleted tests</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

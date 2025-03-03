@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 final class FrontOfficeController extends AbstractController
 {
@@ -25,30 +26,42 @@ final class FrontOfficeController extends AbstractController
         ]);
     }
 
-    // Route pour afficher les événements avec un filtrage optionnel par catégorie
     #[Route('/front/event', name: 'app_event_index_front', methods: ['GET'])]
-    public function indexFront(EventRepository $eventRepository, CategoryRepository $categoryRepository, Request $request): Response
-    {
-        // Récupère l'ID de la catégorie depuis les paramètres de la requête (GET)
+    public function indexFront(
+        EventRepository $eventRepository,
+        CategoryRepository $categoryRepository,
+        Request $request,
+        PaginatorInterface $paginator
+    ): Response {
         $categoryId = $request->query->get('category');
+        $searchTerm = $request->query->get('search');
 
-        // Si un ID de catégorie est spécifié, filtre les événements par catégorie
+        $queryBuilder = $eventRepository->createQueryBuilder('e');
+
+        // Filter by category if provided
         if ($categoryId) {
-            $events = $eventRepository->findBy(['category' => $categoryId]);
-        } else {
-            // Sinon, récupère tous les événements
-            $events = $eventRepository->findAll();
+            $queryBuilder->andWhere('e.category = :category')
+                ->setParameter('category', $categoryId);
         }
 
-        // Récupère toutes les catégories pour les afficher dans le filtre
-        $categories = $categoryRepository->findAll();
+        // Search by event title or description
+        if (!empty($searchTerm)) {
+            $queryBuilder->andWhere('e.titre LIKE :search OR e.description LIKE :search')
+                ->setParameter('search', '%' . $searchTerm . '%');
+        }
+
+        // Get paginated events
+        $query = $queryBuilder->getQuery();
+        $events = $paginator->paginate($query, $request->query->getInt('page', 1), 6);
 
         return $this->render('event/indexFront.twig', [
             'events' => $events,
-            'categories' => $categories,
+            'categories' => $categoryRepository->findAll(),
             'selectedCategoryId' => $categoryId,
+            'searchTerm' => $searchTerm,
         ]);
     }
+
     #[Route('/front/test', name: 'app_test_index_front', methods: ['GET'])]
     public function indexFrontEvent(TestRepository $testRepository, TypeRepository $typeRepository): Response
     {
