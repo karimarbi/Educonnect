@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="esprit.tn.controllers.AjouterTestAvecTypeController"
+      spacing="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <VBox fx:id="typeSection" spacing="10">
+        <Label text="Ajouter un Type" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+        
+        <GridPane hgap="10" vgap="10">
+            <Label text="Mode:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <ComboBox fx:id="modeComboBox" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="200"/>
+            <Button text="Ajouter Type" onAction="#handleAjouterType" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+        </GridPane>
+
+        <TableView fx:id="Types" VBox.vgrow="ALWAYS" prefHeight="200">
+            <columns>
+                <TableColumn fx:id="idCol" text="ID" prefWidth="100"/>
+                <TableColumn fx:id="modeCol" text="Mode" prefWidth="200"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+    <VBox fx:id="testSection" spacing="10" visible="false">
+        <Label text="Ajouter un Test" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+        
+        <GridPane hgap="10" vgap="10">
+            <Label text="Heure du Test (8-17):" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="heureDuTestField" GridPane.columnIndex="1" GridPane.rowIndex="0" promptText="Entre 8 et 17"/>
+            
+            <Label text="Matière:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <ComboBox fx:id="matiereComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="200"/>
+        </GridPane>
+
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Ajouter Test" onAction="#handleAjouterTest"/>
+            <Button text="Annuler" onAction="#handleAnnuler"/>
+        </HBox>
+    </VBox>
+
+</VBox>

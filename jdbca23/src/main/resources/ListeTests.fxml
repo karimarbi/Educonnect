@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.main.ListeTestsController" stylesheets="@styles.css">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Rechercher:" style="-fx-font-size: 14px;"/>
+        <TextField fx:id="searchField" promptText="Rechercher un test..." prefWidth="200"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Nouveau Test" onAction="#handleNouveauTest" styleClass="button-primary"/>
+    </HBox>
+
+    <TableView fx:id="testTable" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="75.0"/>
+            <TableColumn fx:id="heureDuTestColumn" text="Heure du Test" prefWidth="150.0"/>
+            <TableColumn fx:id="nomMatiereColumn" text="Matière" prefWidth="150.0"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Modifier" onAction="#handleModifier" styleClass="button-primary"/>
+        <Button text="Supprimer" onAction="#handleSupprimer" styleClass="button-danger"/>
+    </HBox>
+</VBox> 

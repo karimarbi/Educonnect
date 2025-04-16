@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="esprit.tn.controllers.TypeController"
+      spacing="10" padding="10">
+
+    <TableView fx:id="typeTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="modeColumn" text="Mode" prefWidth="200"/>
+        </columns>
+    </TableView>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Mode:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="modeField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Ajouter" onAction="#handleAdd"/>
+        <Button text="Modifier" onAction="#handleUpdate"/>
+        <Button text="Supprimer" onAction="#handleDelete"/>
+        <Button text="Rafraîchir" onAction="#handleRefresh"/>
+    </HBox>
+
+</VBox> 
