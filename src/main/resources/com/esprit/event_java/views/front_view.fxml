@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.esprit.event_java.Controllers.FrontController"
+            stylesheets="@../styles/styles.css">
+
+    <top>
+        <HBox alignment="CENTER" styleClass="header-box">
+            <Label text="Upcoming Events" styleClass="header-title" />
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fx:id="scrollPane" styleClass="scroll-pane" fitToWidth="true">
+            <FlowPane fx:id="coursesContainer" styleClass="events-container" />
+        </ScrollPane>
+    </center>
+</BorderPane>
