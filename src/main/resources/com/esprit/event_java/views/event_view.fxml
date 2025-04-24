@@ -6,6 +6,11 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
 <TabPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="com.esprit.event_java.Controllers.EventController">
 
@@ -75,6 +80,16 @@
             <VBox spacing="10" styleClass="list-container">
                 <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
 
+                <HBox spacing="10">
+                    <Label text="Search:"/>
+                    <TextField fx:id="searchField" promptText="Enter keyword..." onKeyReleased="#handleSearch"/>
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label text="Filter by Category:"/>
+                    <ComboBox fx:id="categoryFilterCombo" promptText="All Categories" onAction="#handleCategoryFilter"/>
+                </HBox>
+
                 <Label text="Events List" styleClass="list-title"/>
 
                 <TableView fx:id="eventTable" styleClass="event-table">
@@ -89,8 +104,13 @@
 
                 <HBox spacing="10" alignment="CENTER_RIGHT">
                     <Button text="Refresh" onAction="#handleRefresh" styleClass="btn-default"/>
+                    <Button text="Clear Filters" onAction="#handleClearFilters" styleClass="btn-default"/>
                 </HBox>
             </VBox>
+        </Tab>
+
+        <Tab text="Statistics">
+            <fx:include source="stats-view.fxml" />
         </Tab>
     </tabs>
 </TabPane>

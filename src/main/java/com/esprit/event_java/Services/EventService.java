@@ -9,77 +9,79 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+public class EventService {
+    private final Connection connection;
+    private final CategoryService categoryService;
+    private static final String UPLOAD_DIR = "uploads/events/";
 
-    public class EventService {
-        private final Connection connection;
-        private final CategoryService categoryService;
-        private static final String UPLOAD_DIR = "uploads/events/";
+    public EventService() {
+        this.connection = DatabaseConnection.getConnection();
+        this.categoryService = new CategoryService();
+    }
 
-        public EventService() {
-            this.connection = DatabaseConnection.getConnection();
-            this.categoryService = new CategoryService();
-        }
+    public void addEvent(Event event) throws ValidationException {
+        handleImageUpload(event);
+        String query = "INSERT INTO events (title, start_datetime, end_datetime, location, " +
+                "description, duration, max_participants, image_path, category_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        public void addEvent(Event event) throws ValidationException {
-            handleImageUpload(event);
-            String query = "INSERT INTO events (title, start_datetime, end_datetime, location, " +
-                    "description, duration, max_participants, image_path, category_id) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            setEventStatementParameters(statement, event);
+            statement.executeUpdate();
 
-            try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-                setEventStatementParameters(statement, event);
-                statement.executeUpdate();
-
-                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        event.setId(generatedKeys.getInt(1));
-                    }
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    event.setId(generatedKeys.getInt(1));
                 }
-            } catch (SQLException e) {
-                if (event.getImagePath() != null) {
-                    FileUtils.deleteFile(UPLOAD_DIR + event.getImagePath());
-                }
-                throw new ValidationException("Failed to add event: " + e.getMessage());
             }
-        }
-
-        public void updateEvent(Event event) throws ValidationException {
-            Event oldEvent = event.getId() > 0 ? getEventById(event.getId()) : null;
-            String oldImagePath = oldEvent != null ? oldEvent.getImagePath() : null;
-
-            handleImageUpload(event);
-
-            String query = "UPDATE events SET title = ?, start_datetime = ?, end_datetime = ?, " +
-                    "location = ?, description = ?, duration = ?, max_participants = ?, " +
-                    "image_path = ?, category_id = ? WHERE id = ?";
-
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                setEventStatementParameters(statement, event);
-                statement.setInt(10, event.getId());
-                statement.executeUpdate();
-
-                if (oldImagePath != null && !oldImagePath.equals(event.getImagePath())) {
-                    FileUtils.deleteFile(UPLOAD_DIR + oldImagePath);
-                }
-            } catch (SQLException e) {
-                if (event.getImagePath() != null && !event.getImagePath().equals(oldImagePath)) {
-                    FileUtils.deleteFile(UPLOAD_DIR + event.getImagePath());
-                }
-                throw new ValidationException("Failed to update event: " + e.getMessage());
+        } catch (SQLException e) {
+            if (event.getImagePath() != null) {
+                FileUtils.deleteFile(UPLOAD_DIR + event.getImagePath());
             }
+            throw new ValidationException("Failed to add event: " + e.getMessage());
         }
+    }
 
-        private void handleImageUpload(Event event) throws ValidationException {
-            if (event.getImageFile() != null) {
-                String extension = FileUtils.getFileExtension(event.getImageFile().getName());
-                String newFilename = System.currentTimeMillis() + "." + extension;
-                String destinationPath = UPLOAD_DIR + newFilename;
+    public void updateEvent(Event event) throws ValidationException {
+        Event oldEvent = event.getId() > 0 ? getEventById(event.getId()) : null;
+        String oldImagePath = oldEvent != null ? oldEvent.getImagePath() : null;
 
-                FileUtils.saveFile(event.getImageFile(), destinationPath);
-                event.setImagePath(newFilename);
+        handleImageUpload(event);
+
+        String query = "UPDATE events SET title = ?, start_datetime = ?, end_datetime = ?, " +
+                "location = ?, description = ?, duration = ?, max_participants = ?, " +
+                "image_path = ?, category_id = ? WHERE id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            setEventStatementParameters(statement, event);
+            statement.setInt(10, event.getId());
+            statement.executeUpdate();
+
+            if (oldImagePath != null && !oldImagePath.equals(event.getImagePath())) {
+                FileUtils.deleteFile(UPLOAD_DIR + oldImagePath);
             }
+        } catch (SQLException e) {
+            if (event.getImagePath() != null && !event.getImagePath().equals(oldImagePath)) {
+                FileUtils.deleteFile(UPLOAD_DIR + event.getImagePath());
+            }
+            throw new ValidationException("Failed to update event: " + e.getMessage());
         }
+    }
+
+    private void handleImageUpload(Event event) throws ValidationException {
+        if (event.getImageFile() != null) {
+            String extension = FileUtils.getFileExtension(event.getImageFile().getName());
+            String newFilename = System.currentTimeMillis() + "." + extension;
+            String destinationPath = UPLOAD_DIR + newFilename;
+
+            FileUtils.saveFile(event.getImageFile(), destinationPath);
+            event.setImagePath(newFilename);
+        }
+    }
+
     public void deleteEvent(int id) throws ValidationException {
         String query = "DELETE FROM events WHERE id = ?";
 
@@ -152,5 +154,99 @@ import java.time.LocalDateTime;
         statement.setInt(7, event.getMaxParticipants());
         statement.setString(8, event.getImagePath());
         statement.setInt(9, event.getCategory().getId());
+    }
+
+    public ObservableList<Event> searchEvents(String searchTerm) {
+        ObservableList<Event> events = FXCollections.observableArrayList();
+        String query = "SELECT * FROM events WHERE " +
+                "LOWER(title) LIKE ? OR " +
+                "LOWER(location) LIKE ? OR " +
+                "LOWER(description) LIKE ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            String likeTerm = "%" + searchTerm.toLowerCase() + "%";
+            statement.setString(1, likeTerm);
+            statement.setString(2, likeTerm);
+            statement.setString(3, likeTerm);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    events.add(createEventFromResultSet(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
+
+    public ObservableList<Event> filterEventsByCategory(Category category) {
+        if (category == null) {
+            return getAllEvents();
+        }
+
+        ObservableList<Event> events = FXCollections.observableArrayList();
+        String query = "SELECT * FROM events WHERE category_id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, category.getId());
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    events.add(createEventFromResultSet(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
+
+    public ObservableList<Event> searchAndFilterEvents(String searchTerm, Category category) {
+        if (searchTerm == null || searchTerm.isEmpty()) {
+            return filterEventsByCategory(category);
+        }
+        if (category == null) {
+            return searchEvents(searchTerm);
+        }
+
+        ObservableList<Event> events = FXCollections.observableArrayList();
+        String query = "SELECT * FROM events WHERE " +
+                "(LOWER(title) LIKE ? OR " +
+                "LOWER(location) LIKE ? OR " +
+                "LOWER(description) LIKE ?) " +
+                "AND category_id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            String likeTerm = "%" + searchTerm.toLowerCase() + "%";
+            statement.setString(1, likeTerm);
+            statement.setString(2, likeTerm);
+            statement.setString(3, likeTerm);
+            statement.setInt(4, category.getId());
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    events.add(createEventFromResultSet(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
+
+    public Map<Category, Long> getEventCountByCategory() {
+        Map<Category, Long> eventCounts = getAllEvents().stream()
+                .filter(event -> event.getCategory() != null)
+                .collect(Collectors.groupingBy(
+                        Event::getCategory,
+                        Collectors.counting()
+                ));
+
+        categoryService.getAllCategories().forEach(category ->
+                eventCounts.putIfAbsent(category, 0L)
+        );
+
+        return eventCounts;
     }
 }

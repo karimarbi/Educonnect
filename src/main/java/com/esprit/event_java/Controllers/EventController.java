@@ -5,6 +5,7 @@ import com.esprit.event_java.Models.Category;
 import com.esprit.event_java.Services.EventService;
 import com.esprit.event_java.Services.CategoryService;
 import com.esprit.event_java.exceptions.ValidationException;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,12 +13,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.util.StringConverter;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class EventController {
     // Form fields
@@ -34,6 +38,8 @@ public class EventController {
     @FXML private ComboBox<Category> categoryCombo;
     @FXML private Button uploadImageButton;
     @FXML private ImageView imagePreview;
+    @FXML private TextField searchField;
+    @FXML private ComboBox<Category> categoryFilterCombo;
 
     // Action buttons
     @FXML private Button saveButton;
@@ -58,42 +64,62 @@ public class EventController {
 
     @FXML
     public void initialize() {
-        // Initialize form components
         initializeForm();
-
-        // Initialize table columns
+        initializeCategoryFilter();
         initializeTableColumns();
-
-        // Load initial data
         refreshEventTable();
-
-        // Setup table selection listener
         setupTableSelectionListener();
 
-        // Set initial button states
         updateButton.setDisable(true);
         deleteButton.setDisable(true);
     }
 
     private void initializeForm() {
-        // Load categories into combo box
         categoryCombo.setItems(categoryService.getAllCategories());
+        categoryCombo.setConverter(new StringConverter<Category>() {
+            @Override
+            public String toString(Category category) {
+                return category == null ? "" : category.getName();
+            }
 
-        // Set default dates and times
+            @Override
+            public Category fromString(String string) {
+                return null;
+            }
+        });
+
         startDatePicker.setValue(LocalDate.now());
         endDatePicker.setValue(LocalDate.now());
         startTimeField.setText(LocalTime.now().format(timeFormatter));
         endTimeField.setText(LocalTime.now().plusHours(1).format(timeFormatter));
 
-        // Configure file chooser
         fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
     }
 
+    private void initializeCategoryFilter() {
+        ObservableList<Category> allCategories = FXCollections.observableArrayList();
+        allCategories.add(null);
+        allCategories.addAll(categoryService.getAllCategories());
+
+        categoryFilterCombo.setItems(allCategories);
+        categoryFilterCombo.setConverter(new StringConverter<Category>() {
+            @Override
+            public String toString(Category category) {
+                return category == null ? "All Categories" : category.getName();
+            }
+
+            @Override
+            public Category fromString(String string) {
+                return null;
+            }
+        });
+        categoryFilterCombo.getSelectionModel().selectFirst();
+    }
+
     private void initializeTableColumns() {
-        // Configure table columns
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("startDatetime"));
@@ -273,8 +299,14 @@ public class EventController {
     }
 
     private void refreshEventTable() {
-        ObservableList<Event> events = eventService.getAllEvents();
-        eventTable.setItems(events);
+        String searchTerm = searchField.getText();
+        Category selectedCategory = categoryFilterCombo.getValue();
+
+        if ((searchTerm == null || searchTerm.isEmpty()) && selectedCategory == null) {
+            eventTable.setItems(eventService.getAllEvents());
+        } else {
+            eventTable.setItems(eventService.searchAndFilterEvents(searchTerm, selectedCategory));
+        }
     }
 
     private void setEventData(Event event) {
@@ -333,5 +365,26 @@ public class EventController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleSearch() {
+        refreshEventTable();
+    }
+
+    @FXML
+    private void handleCategoryFilter() {
+        refreshEventTable();
+    }
+
+    @FXML
+    private void handleClearFilters() {
+        searchField.clear();
+        categoryFilterCombo.getSelectionModel().selectFirst();
+        refreshEventTable();
+    }
+
+    public Map<Category, Long> getEventCountByCategory() {
+        return eventService.getEventCountByCategory();
     }
 }

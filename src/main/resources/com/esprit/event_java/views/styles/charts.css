@@ -1,0 +1,44 @@
+/* Chart styling */
+.chart {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+}
+
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.axis-label {
+    -fx-font-size: 12px;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+.chart-legend-item {
+    -fx-font-size: 12px;
+}
+
+/* Bar Chart specific */
+.default-color0.chart-bar {
+    -fx-bar-fill: #3498db;
+}
+
+/* Pie Chart specific */
+.chart-pie-label {
+    -fx-font-size: 10px;
+    -fx-fill: #333;
+}
+
+/* Area Chart specific */
+.default-color0.chart-series-area-fill {
+    -fx-fill: rgba(52, 152, 219, 0.3);
+}
+
+.default-color0.chart-series-area-line {
+    -fx-stroke: #3498db;
+    -fx-stroke-width: 2px;
+}

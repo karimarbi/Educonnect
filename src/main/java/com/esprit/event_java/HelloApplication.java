@@ -13,7 +13,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws Exception {
         // Load main view
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/esprit/event_java/views/front_view.fxml")
+                getClass().getResource("/com/esprit/event_java/views/main_view.fxml")
         );
         Parent root = loader.load();
 
