@@ -1,0 +1,100 @@
+/* Styles généraux */
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-background-color: #f5f5f5;
+}
+
+/* Styles des champs de texte */
+.text-field, .date-picker, .spinner {
+    -fx-padding: 8;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 4;
+    -fx-background-color: white;
+}
+
+.text-field:focused, .date-picker:focused, .spinner:focused {
+    -fx-border-color: #2196F3;
+}
+
+/* Styles des boutons */
+.button {
+    -fx-padding: 8 15;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.button-primary {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+}
+
+.button-primary:hover {
+    -fx-background-color: #1976D2;
+}
+
+.button-secondary {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+.button-secondary:hover {
+    -fx-background-color: #388E3C;
+}
+
+.button-danger {
+    -fx-background-color: #F44336;
+    -fx-text-fill: white;
+}
+
+.button-danger:hover {
+    -fx-background-color: #D32F2F;
+}
+
+.button-warning {
+    -fx-background-color: #FFC107;
+    -fx-text-fill: black;
+}
+
+.button-warning:hover {
+    -fx-background-color: #FFA000;
+}
+
+/* Styles de la TableView */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #E0E0E0;
+}
+
+.table-view .column-header {
+    -fx-background-color: #F5F5F5;
+    -fx-padding: 10;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #E3F2FD;
+}
+
+/* Styles des labels */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* Styles de la ComboBox */
+.combo-box {
+    -fx-pref-height: 30px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+}
+
+.combo-box:focused {
+    -fx-border-color: #2196F3;
+}
+
+/* Styles des messages d'erreur */
+.error {
+    -fx-text-fill: #F44336;
+    -fx-font-size: 12px;
+}

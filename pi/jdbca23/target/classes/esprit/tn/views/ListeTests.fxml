@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="esprit.tn.main.ListeTestsController"
+      stylesheets="@../styles.css">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Barre d'outils -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button text="Ajouter Test" onAction="#handleAjouterTest" styleClass="button-primary"/>
+        <Button text="Modifier Test" onAction="#handleModifierTest" styleClass="button-secondary"/>
+        <Button text="Supprimer Test" onAction="#handleSupprimerTest" styleClass="button-danger"/>
+    </HBox>
+
+    <!-- TableView pour afficher les tests -->
+    <TableView fx:id="testTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="idTest" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="heureDuTest" text="Heure" prefWidth="80"/>
+            <TableColumn fx:id="nomMatiere" text="Matière" prefWidth="150"/>
+            <TableColumn fx:id="nomFormateur" text="Formateur" prefWidth="150"/>
+            <TableColumn fx:id="nomSalle" text="Salle" prefWidth="100"/>
+            <TableColumn fx:id="coefficient" text="Coefficient" prefWidth="100"/>
+        </columns>
+        <placeholder>
+            <Label text="Aucun test disponible"/>
+        </placeholder>
+    </TableView>
+</VBox>

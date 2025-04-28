@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="esprit.tn.controllers.TestController"
+      stylesheets="@../styles.css">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Formulaire d'ajout/modification -->
+    <GridPane hgap="10" vgap="10">
+        <Label text="Heure du test:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Spinner fx:id="heureSpinner" min="8" max="17" initialValue="8" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Label text="Matière:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="matiereField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Label text="Formateur:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="formateurField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        <Label text="Salle:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <TextField fx:id="salleField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+        <Label text="Coefficient:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Spinner fx:id="coefficientSpinner" amountToStepBy="0.5" min="0.5" max="5" initialValue="1" 
+                 GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+        <HBox spacing="10" GridPane.columnSpan="2" GridPane.rowIndex="5">
+            <Button text="Ajouter" onAction="#handleAjouter" styleClass="button-primary"/>
+            <Button text="Modifier" onAction="#handleModifier" styleClass="button-secondary"/>
+            <Button text="Supprimer" onAction="#handleSupprimer" styleClass="button-danger"/>
+            <Button text="Effacer" onAction="#handleEffacer" styleClass="button-warning"/>
+        </HBox>
+    </GridPane>
+
+    <!-- TableView pour afficher les tests -->
+    <TableView fx:id="testTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="heureColumn" text="Heure" prefWidth="80"/>
+            <TableColumn fx:id="matiereColumn" text="Matière" prefWidth="150"/>
+            <TableColumn fx:id="formateurColumn" text="Formateur" prefWidth="150"/>
+            <TableColumn fx:id="salleColumn" text="Salle" prefWidth="100"/>
+            <TableColumn fx:id="coefficientColumn" text="Coefficient" prefWidth="100"/>
+        </columns>
+    </TableView>
+</VBox>

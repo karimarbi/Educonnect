@@ -1,0 +1,1 @@
+<Button text="Ajouter Test avec Type" onAction="#handleAjouterTestAvecType"/> 

@@ -1,0 +1,59 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="esprit.tn.controllers.TestController"
+      stylesheets="@../styles.css">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Formulaire -->
+    <GridPane hgap="10" vgap="10">
+        <Label text="Heure du test :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <Spinner fx:id="heureSpinner" min="8" max="18" initialValue="8" amountToStepBy="1"
+                 GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Matière :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="matiereField" promptText="Nom de la matière"
+                  GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Formateur :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="formateurField" promptText="Nom du formateur"
+                  GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Salle :" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="salleField" promptText="Numéro de salle"
+                  GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Coefficient :" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <Spinner fx:id="coefficientSpinner" min="0.5" max="5.0" initialValue="1.0" amountToStepBy="0.5"
+                 GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <!-- Boutons -->
+    <HBox spacing="10">
+        <Button text="Ajouter" onAction="#handleAjouter" styleClass="button-primary"/>
+        <Button text="Modifier" onAction="#handleModifier" styleClass="button-secondary"/>
+        <Button text="Supprimer" onAction="#handleSupprimer" styleClass="button-danger"/>
+        <Button text="Effacer" onAction="#handleEffacer" styleClass="button-warning"/>
+    </HBox>
+
+    <!-- TableView -->
+    <TableView fx:id="testTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="heureColumn" text="Heure" prefWidth="80"/>
+            <TableColumn fx:id="matiereColumn" text="Matière" prefWidth="150"/>
+            <TableColumn fx:id="formateurColumn" text="Formateur" prefWidth="150"/>
+            <TableColumn fx:id="salleColumn" text="Salle" prefWidth="100"/>
+            <TableColumn fx:id="coefficientColumn" text="Coefficient" prefWidth="100"/>
+        </columns>
+        <placeholder>
+            <Label text="Aucun test disponible"/>
+        </placeholder>
+    </TableView>
+</VBox>

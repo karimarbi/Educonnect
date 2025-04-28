@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="esprit.tn.controllers.AjouterTestAvecTypeController"
+      stylesheets="@../styles.css">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <GridPane vgap="10" hgap="10">
+        <Label text="Heure du Test:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="heureDuTestField" promptText="Heure (8-17)" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Label text="Matière:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="nomMatiereField" promptText="Nom de la matière" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Label text="Type:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="typeComboBox" promptText="Sélectionner un type" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        <Label text="Formateur:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <TextField fx:id="nomFormateurField" promptText="Nom du formateur" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+        <Label text="Date du Test:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <DatePicker fx:id="jourTestPicker" promptText="Sélectionner une date" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+        <Label text="Salle:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+        <TextField fx:id="nomSalleField" promptText="Nom de la salle" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+        <Label text="Coefficient:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+        <TextField fx:id="coefficientField" promptText="Coefficient" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Ajouter" onAction="#handleAjouter" styleClass="button-primary"/>
+        <Button text="Annuler" onAction="#handleAnnuler" styleClass="button-secondary"/>
+    </HBox>
+</VBox>
