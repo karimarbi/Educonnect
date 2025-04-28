@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.Controllers.Mayssa.CourseDetailsController" spacing="10" style="-fx-background-color: white;">
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <ImageView fx:id="courseImageView" fitWidth="400" fitHeight="250" preserveRatio="true">
+        <VBox.margin>
+            <Insets bottom="10"/>
+        </VBox.margin>
+    </ImageView>
+
+    <Label fx:id="titleLabel" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Label fx:id="categoryLabel" style="-fx-font-size: 14px; -fx-text-fill: #666;"/>
+
+    <Separator/>
+
+    <Label text="Description:" style="-fx-font-weight: bold;"/>
+    <Text fx:id="descriptionText" wrappingWidth="400"/>
+
+    <Separator/>
+
+    <Label text="Content:" style="-fx-font-weight: bold;"/>
+    <Text fx:id="contentText" wrappingWidth="400"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="registerButton" text="Register" onAction="#handleRegister" defaultButton="true" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        <Button fx:id="closeButton" text="Close" onAction="#handleClose" cancelButton="true"/>
+    </HBox>
+</VBox>

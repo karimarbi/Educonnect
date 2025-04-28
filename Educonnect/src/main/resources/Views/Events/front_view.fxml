@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.esprit.Controllers.Karim.FrontController"
+            stylesheets="@../../styles/styleevent.css">
+
+    <top>
+        <VBox alignment="CENTER" spacing="10" styleClass="header-container">
+            <Label text="Upcoming Events" styleClass="header-title" />
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="categories-scroll">
+                <FlowPane fx:id="categoriesContainer" styleClass="categories-container" />
+            </ScrollPane>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fx:id="scrollPane" styleClass="main-scroll-pane" fitToWidth="true">
+            <FlowPane fx:id="eventsContainer" styleClass="events-container" />
+        </ScrollPane>
+    </center>
+
+</BorderPane>

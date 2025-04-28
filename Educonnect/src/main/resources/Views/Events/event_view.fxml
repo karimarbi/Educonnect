@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<TabPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="com.esprit.Controllers.Karim.EventController"
+         styleClass="tab-pane"
+         stylesheets="@../../styles/EventStyleBack.css">
+
+    <tabs>
+        <Tab text="Event Form">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+                <VBox styleClass="form-container">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+                    <Label text="Event Details" styleClass="form-title"/>
+
+                    <GridPane styleClass="grid-pane" hgap="15" vgap="15">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="30" halignment="RIGHT"/>
+                            <ColumnConstraints percentWidth="70"/>
+                        </columnConstraints>
+
+                        <Label text="Title*:" styleClass="required" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="titleField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                        <Label text="Start Date*:" styleClass="required" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <DatePicker fx:id="startDatePicker" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Start Time*:" styleClass="required" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <TextField fx:id="startTimeField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                        <Label text="End Date*:" styleClass="required" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                        <DatePicker fx:id="endDatePicker" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                        <Label text="End Time*:" styleClass="required" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                        <TextField fx:id="endTimeField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                        <Label text="Location*:" styleClass="required" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                        <TextField fx:id="locationField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                        <Label text="Description:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                        <TextArea fx:id="descriptionArea" GridPane.rowIndex="6" GridPane.columnIndex="1" prefRowCount="3"/>
+
+                        <Label text="Duration (min)*:" styleClass="required" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                        <TextField fx:id="durationField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+                        <Label text="Max Participants*:" styleClass="required" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+                        <TextField fx:id="maxParticipantsField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+
+                        <Label text="Event Image:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+                        <HBox GridPane.rowIndex="9" GridPane.columnIndex="1" spacing="5">
+                            <TextField fx:id="imagePathField" HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="uploadImageButton" text="Browse..." onAction="#handleImageUpload" styleClass="btn-default"/>
+                        </HBox>
+
+                        <ImageView fx:id="imagePreview" fitWidth="200" fitHeight="150" preserveRatio="true"
+                                   GridPane.rowIndex="10" GridPane.columnIndex="1" GridPane.halignment="LEFT"/>
+
+                        <Label text="Category*:" styleClass="required" GridPane.rowIndex="11" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="categoryCombo" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+                    </GridPane>
+
+                    <HBox spacing="15" alignment="CENTER_RIGHT">
+                        <Button fx:id="saveButton" text="Save" onAction="#handleSaveEvent" styleClass="btn-primary"/>
+                        <Button fx:id="updateButton" text="Update" onAction="#handleUpdateEvent" styleClass="btn-primary"/>
+                        <Button fx:id="deleteButton" text="Delete" onAction="#handleDeleteEvent" styleClass="btn-danger"/>
+                        <Button text="Clear" onAction="#handleClearForm" styleClass="btn-default"/>
+                    </HBox>
+                </VBox>
+            </ScrollPane>
+        </Tab>
+
+        <Tab text="Event List">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+                <VBox styleClass="list-container">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="Search:"/>
+                        <TextField fx:id="searchField" promptText="Enter keyword..." onKeyReleased="#handleSearch" prefWidth="250"/>
+                        <Label text="Filter by Category:"/>
+                        <ComboBox fx:id="categoryFilterCombo" promptText="All Categories" onAction="#handleCategoryFilter" prefWidth="200"/>
+                    </HBox>
+
+                    <Label text="Events List" styleClass="list-title"/>
+
+
+                    <TableView fx:id="eventTable" styleClass="event-table" prefHeight="400">
+                        <columns>
+                            <TableColumn fx:id="titleColumn" text="Title" prefWidth="200"/>
+                            <TableColumn fx:id="dateColumn" text="Date" prefWidth="120"/>
+                            <TableColumn fx:id="timeColumn" text="Time" prefWidth="100"/>
+                            <TableColumn fx:id="locationColumn" text="Location" prefWidth="150"/>
+                            <TableColumn fx:id="categoryColumn" text="Category" prefWidth="150"/>
+                        </columns>
+                    </TableView>
+
+                    <HBox spacing="15" alignment="CENTER_RIGHT">
+                        <Button text="Refresh" onAction="#handleRefresh" styleClass="btn-default"/>
+                        <Button text="Clear Filters" onAction="#handleClearFilters" styleClass="btn-default"/>
+                    </HBox>
+                </VBox>
+            </ScrollPane>
+        </Tab>
+
+        <Tab text="Statistics">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+                <fx:include source="stats-view.fxml" />
+            </ScrollPane>
+        </Tab>
+    </tabs>
+</TabPane>

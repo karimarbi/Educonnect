@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.esprit.Controllers.Karim.PaymentController"
+      spacing="15"
+      styleClass="payment-form"
+      stylesheets="@../../styles/Payment.css"
+      alignment="CENTER"
+      prefWidth="400">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label fx:id="eventTitleLabel" styleClass="form-title"/>
+    <Label fx:id="participantLabel" styleClass="participant-label"/>
+    <Label fx:id="amountLabel" styleClass="amount-label"/>
+
+    <!-- Bank Card Preview -->
+    <VBox styleClass="card-preview" alignment="TOP_LEFT">
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Region styleClass="card-chip"/>
+            <Label text="CREDIT" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+        </HBox>
+        <Label text="•••• •••• •••• ••••" styleClass="card-number"/>
+        <HBox spacing="20">
+            <VBox spacing="5">
+                <Label text="CARD HOLDER" style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 10px;"/>
+                <Label text="John Doe" styleClass="card-name"/>
+            </VBox>
+            <VBox spacing="5">
+                <Label text="EXPIRES" style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 10px;"/>
+                <Label text="••/••" styleClass="card-expiry"/>
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="40"/>
+            <ColumnConstraints percentWidth="60"/>
+        </columnConstraints>
+
+        <Label text="Numéro de carte:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="cardNumberField" GridPane.rowIndex="0" GridPane.columnIndex="1" promptText="1234 5678 9012 3456"/>
+
+        <Label text="Date d'expiration:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="expiryField" promptText="MM/YY" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="CVV:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="cvvField" promptText="•••" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="20" alignment="CENTER">
+        <Button fx:id="payButton" text="Payer" onAction="#handlePayment" styleClass="pay-button"/>
+        <Button fx:id="cancelButton" text="Annuler" onAction="#handleCancel" styleClass="cancel-button"/>
+    </HBox>
+</VBox>

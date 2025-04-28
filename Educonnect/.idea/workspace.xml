@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="708738ee-56e1-4c2a-9e5c-e98daece6d3c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/Controllers/Aziz/ReclamationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/Controllers/Aziz/ReclamationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/Controllers/Karim/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/Controllers/Karim/EventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/Controllers/Karim/FrontController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/Controllers/Karim/FrontController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/Controllers/Mayssa/CoursController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/Controllers/Mayssa/CoursController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/Controllers/Mayssa/FrontController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/Controllers/Mayssa/FrontController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/Entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/Entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/Entities/UserSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/Entities/UserSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/Models/Categorie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/Models/Categorie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/Models/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/Models/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/Services/CategorieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/Services/CategorieService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/Services/CoursService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/Services/CoursService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/Services/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/Services/EventService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Views/Cours/cours_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Views/Cours/cours_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Views/Cours/front_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Views/Cours/front_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Views/Events/event_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Views/Events/event_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Views/Events/front_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Views/Events/front_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Views/Reclamations/reclamation_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Views/Reclamations/reclamation_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/styles/stylecours.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles/stylecours.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/styles/styleevent.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles/styleevent.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles/styles.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp\php\php.exe" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2wBt4DdHXJVTNlmPxeiOOfmIZRD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;IntégrationJavafx&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Dell/Desktop/Nouveau dossier/java-prosit/Educonnect/src/main/resources/images&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Dell\Desktop\Nouveau dossier\java-prosit\Educonnect\src\main\resources\images" />
+      <recent name="C:\Users\Dell\Desktop\Nouveau dossier\java-prosit\Educonnect\src\main\resources\Views\Events" />
+      <recent name="C:\Users\Dell\Desktop\Nouveau dossier\java-prosit\Educonnect\src\main\java\com\esprit\Controllers\Karim" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.esprit.Services" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.9-jbr-17.0.9-4caba194b151-51f1b679" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="708738ee-56e1-4c2a-9e5c-e98daece6d3c" name="Changes" comment="" />
+      <created>1745526604632</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1745526604632</updated>
+      <workItem from="1745526606350" duration="377000" />
+      <workItem from="1745534157332" duration="3403000" />
+      <workItem from="1745537572035" duration="253000" />
+      <workItem from="1745572135871" duration="1735000" />
+      <workItem from="1745590336267" duration="15433000" />
+      <workItem from="1745661408543" duration="2426000" />
+      <workItem from="1745690171077" duration="4729000" />
+      <workItem from="1745694940216" duration="2831000" />
+      <workItem from="1745766113029" duration="20225000" />
+      <workItem from="1745851075297" duration="8101000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

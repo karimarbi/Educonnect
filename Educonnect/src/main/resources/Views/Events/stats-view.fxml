@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.esprit.Controllers.Karim.StatsController"
+      fx:id="chartContainer"
+      spacing="10" styleClass="stats-container">
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <TabPane fx:id="chartTabPane">
+        <tabs>
+            <Tab text="Events by Location">
+                <content>
+                    <BarChart fx:id="barChart">
+                        <xAxis>
+                            <CategoryAxis label="Locations" />
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis label="Number of Events" />
+                        </yAxis>
+                    </BarChart>
+                </content>
+            </Tab>
+            <Tab text="Events by Category">
+                <content>
+                    <PieChart fx:id="pieChart" />
+                </content>
+            </Tab>
+            <Tab text="Events by Month">
+                <content>
+                    <AreaChart fx:id="areaChart">
+                        <xAxis>
+                            <CategoryAxis label="Months" />
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis label="Number of Events" />
+                        </yAxis>
+                    </AreaChart>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+
+    <HBox alignment="CENTER_RIGHT" spacing="10">
+        <Button text="Refresh Charts" onAction="#refreshCharts" styleClass="btn-primary"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,129 @@
+/* Registration Form Styles */
+.registration-form {
+    -fx-background-color: white;
+    -fx-background-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 3);
+    -fx-padding: 25px;
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+    -fx-max-width: 500px;
+}
+
+.form-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+    -fx-padding: 0 0 10px 0;
+    -fx-alignment: center;
+}
+
+/* GridPane styling */
+.grid-pane {
+    -fx-hgap: 15px;
+    -fx-vgap: 15px;
+    -fx-padding: 10px 0;
+}
+
+.grid-pane .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #475569;
+    -fx-font-weight: 600;
+    -fx-alignment: center-right;
+}
+
+/* TextField styling */
+.text-field {
+    -fx-font-size: 14px;
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-padding: 10px;
+    -fx-pref-height: 40px;
+}
+
+.text-field:disabled {
+    -fx-opacity: 1.0;
+    -fx-background-color: #f1f5f9;
+}
+
+.text-field:focused {
+    -fx-border-color: #4f46e5;
+    -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.2), 5, 0, 0, 1);
+}
+
+/* Button styling */
+.submit-button {
+    -fx-background-color: linear-gradient(to right, #4f46e5, #7c3aed);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 30px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.3), 5, 0, 0, 2);
+}
+
+.submit-button:hover {
+    -fx-background-color: linear-gradient(to right, #4338ca, #6d28d9);
+    -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.4), 8, 0, 0, 3);
+}
+
+.cancel-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #64748b;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 30px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #f1f5f9;
+    -fx-text-fill: #475569;
+}
+
+/* Button container */
+.hbox {
+    -fx-spacing: 20px;
+    -fx-padding: 20px 0 0 0;
+    -fx-alignment: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .registration-form {
+        -fx-padding: 20px;
+        -fx-max-width: 400px;
+    }
+
+    .form-title {
+        -fx-font-size: 20px;
+    }
+
+    .grid-pane {
+        -fx-hgap: 12px;
+        -fx-vgap: 12px;
+    }
+
+    .grid-pane .label {
+        -fx-font-size: 13px;
+    }
+
+    .text-field {
+        -fx-font-size: 13px;
+        -fx-padding: 8px;
+        -fx-pref-height: 36px;
+    }
+
+    .submit-button, .cancel-button {
+        -fx-padding: 10px 25px;
+        -fx-font-size: 13px;
+    }
+}

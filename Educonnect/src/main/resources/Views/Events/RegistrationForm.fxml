@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.esprit.Controllers.Karim.RegistrationController"
+      stylesheets="@../../styles/RegistrationStyle.css"
+      styleClass="registration-form"
+      alignment="CENTER"
+      spacing="15"
+      prefWidth="500"
+      prefHeight="400">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <Label fx:id="eventTitleLabel" styleClass="form-title" text="Inscription à l'événement" />
+
+    <Label fx:id="participantsLabel" styleClass="spots-label" />
+
+    <Separator styleClass="separator" />
+
+    <GridPane styleClass="form-grid" hgap="15" vgap="15">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="30" halignment="RIGHT"/>
+            <ColumnConstraints percentWidth="70"/>
+        </columnConstraints>
+
+        <Label text="Prénom:" styleClass="field-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="firstNameField" styleClass="form-field" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Nom:" styleClass="field-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="lastNameField" styleClass="form-field" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Adresse:" styleClass="field-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="addressField" styleClass="form-field" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Téléphone:" styleClass="field-label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="phoneField" styleClass="form-field" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox styleClass="button-container" spacing="20" alignment="CENTER">
+        <Button fx:id="submitButton" text="Valider" onAction="#handleSubmit" styleClass="submit-button"
+                defaultButton="true"/>
+        <Button fx:id="cancelButton" text="Annuler" onAction="#handleCancel" styleClass="cancel-button"
+                cancelButton="true"/>
+    </HBox>
+</VBox>

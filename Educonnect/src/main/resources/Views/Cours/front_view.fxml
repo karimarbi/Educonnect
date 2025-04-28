@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+
+<?import java.net.URL?>
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.esprit.Controllers.Mayssa.FrontController"
+            stylesheets="@../../styles/stylecours.css">
+
+    <!-- Top Navigation Bar -->
+    <top>
+        <HBox styleClass="nav-bar" alignment="CENTER_LEFT" spacing="20">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+            <Label text="EduConnect" styleClass="nav-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Home" styleClass="nav-button" onAction="#goToHome"/>
+            <Button text="Events" styleClass="nav-button" onAction="#goToEvents"/>
+        </HBox>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="20" styleClass="main-container">
+            <!-- Page Header -->
+            <VBox alignment="CENTER" spacing="5" styleClass="page-header">
+                <Label text="Our Available Courses" styleClass="page-title"/>
+                <Label text="Expand your knowledge with our curated selection" styleClass="page-subtitle"/>
+            </VBox>
+
+            <!-- Courses Grid -->
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                        styleClass="scroll-pane">
+                <content>
+                    <FlowPane fx:id="coursesContainer" styleClass="courses-grid"/>
+                </content>
+            </ScrollPane>
+
+            <!-- Pagination Controls -->
+            <HBox fx:id="paginationContainer" alignment="CENTER" spacing="10"
+                  style="-fx-padding: 10; -fx-background-color: #f5f5f5;"/>
+        </VBox>
+    </center>
+
+    <!-- Footer -->
+    <bottom>
+        <HBox alignment="CENTER" styleClass="footer">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label text="© 2023 EduConnect. All rights reserved." styleClass="footer-text"/>
+        </HBox>
+    </bottom>
+</BorderPane>
