@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.main.HistoriqueTestsController" stylesheets="@styles.css">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Historique des Tests" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="historyTable" prefHeight="400.0" prefWidth="600.0">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="75.0"/>
+            <TableColumn fx:id="heureDuTestColumn" text="Heure du Test" prefWidth="150.0"/>
+            <TableColumn fx:id="nomMatiereColumn" text="Matière" prefWidth="150.0"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Fermer" onAction="#handleClose" styleClass="button-primary"/>
+    </HBox>
+</VBox>

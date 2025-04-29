@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="esprit.tn.controllers.TableauxController"
+      spacing="10" padding="10">
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Ajouter Type" onAction="#handleAjouterType"/>
+        <Button text="Ajouter Test" onAction="#handleAjouterTest"/>
+        <Button text="Rafraîchir" onAction="#handleRafraichir"/>
+    </HBox>
+
+    <TabPane>
+        <Tab text="Tests" closable="false">
+            <TableView fx:id="testTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="testIdColumn" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="heureDuTestColumn" text="Heure du Test" prefWidth="150"/>
+                    <TableColumn fx:id="nomMatiereColumn" text="Matière" prefWidth="150"/>
+                </columns>
+            </TableView>
+        </Tab>
+        
+        <Tab text="Types" closable="false">
+            <TableView fx:id="typeTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="typeIdColumn" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="modeColumn" text="Mode" prefWidth="200"/>
+                </columns>
+            </TableView>
+        </Tab>
+    </TabPane>
+
+</VBox> 

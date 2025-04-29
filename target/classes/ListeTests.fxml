@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.main.ListeTestsController">
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label style="-fx-font-size: 14px;" text="Rechercher:" />
+        <TextField fx:id="searchField" prefWidth="200" promptText="Rechercher un test..." />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button onAction="#handleNouveauTest" styleClass="button-primary" text="Nouveau Test" />
+    </HBox>
+
+    <TableView fx:id="testTable" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0">
+        <columns>
+            <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="heureDuTestColumn" prefWidth="150.0" text="Heure du Test" />
+            <TableColumn fx:id="nomMatiereColumn" prefWidth="88.0" text="Matière" />
+         <TableColumn fx:id="nomMatiereColumn1" prefWidth="106.0" text="coefficient" />
+        </columns>
+    </TableView>
+
+    <HBox alignment="CENTER_RIGHT" spacing="10">
+        <Button onAction="#handleExport" styleClass="button-primary" text="Exporter" />
+        <Button onAction="#handleStatistique" styleClass="button-primary" text="Statistique" />
+        <Button onAction="#handleOpenFrontView" styleClass="button-primary" text="Front" />
+        <!-- Removed refresh button as per user request -->
+    </HBox>
+
+    <HBox alignment="CENTER_RIGHT" spacing="10">
+        <Button onAction="#handleModifier" styleClass="button-primary" text="Modifier" />
+        <Button onAction="#handleSupprimer" styleClass="button-danger" text="Supprimer" />
+    </HBox>
+</VBox>

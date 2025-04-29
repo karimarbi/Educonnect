@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="esprit.tn.controllers.TableauxController"
+      spacing="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button text="Rafraîchir" onAction="#handleRefresh"/>
+    </HBox>
+
+    <TitledPane text="Tests" expanded="true">
+        <TableView fx:id="testTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+                <TableColumn fx:id="heureDuTestColumn" text="Heure" prefWidth="100"/>
+                <TableColumn fx:id="nomMatiereColumn" text="Matière" prefWidth="150"/>
+                <TableColumn fx:id="typeColumn" text="Type" prefWidth="150"/>
+            </columns>
+        </TableView>
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="Ajouter" onAction="#handleAjouterTest"/>
+            <Button text="Supprimer" onAction="#handleDeleteTest"/>
+            <Button text="Modifier" onAction="#handleModifierTest"/>
+            <Button text="Trier par Heure" onAction="#handleTrierParHeure"/>
+            <TextField fx:id="heureSearchField" promptText="Heure du Test" prefWidth="120"/>
+            <Button text="Recherche" onAction="#handleRechercheParHeure"/>
+        </HBox>
+    </TitledPane>
+
+    <TitledPane text="Types" expanded="true">
+        <TableView fx:id="typeTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="typeIdColumn" text="ID" prefWidth="50"/>
+                <TableColumn fx:id="modeColumn" text="Mode" prefWidth="200"/>
+            </columns>
+        </TableView>
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="Ajouter" onAction="#handleAjouterType"/>
+            <Button text="Supprimer" onAction="#handleDeleteType"/>
+        </HBox>
+    </TitledPane>
+
+</VBox> 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="498.0" prefWidth="589.0" spacing="10" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.main.FrontViewController">
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+
+    <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Front View - Comments and Data" />
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Ajouter un commentaire:" />
+        <TextField fx:id="commentField" prefWidth="300" promptText="Entrez votre commentaire ici..." />
+        <Button onAction="#handleAddComment" text="Ajouter" />
+    </HBox>
+
+    <Label fx:id="lastCommentLabel" style="-fx-font-style: italic;" text="Votre commentaire: " />
+
+    <Label style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Liste des Tests:" />
+    <TableView fx:id="testTable" prefHeight="200" prefWidth="600">
+        <columns>
+            <TableColumn fx:id="idColumn" prefWidth="75" text="ID" />
+            <TableColumn fx:id="heureDuTestColumn" prefWidth="150" text="Heure du Test" />
+            <TableColumn fx:id="nomMatiereColumn" prefWidth="150" text="Matière" />
+            <TableColumn fx:id="typeModeColumn" prefWidth="150" text="Type Mode" />
+        </columns>
+    </TableView>
+
+    <Label style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Liste des Types:" />
+    <TableView fx:id="typeTable" prefHeight="157.0" prefWidth="591.0">
+        <columns>
+            <TableColumn fx:id="typeIdColumn" prefWidth="75" text="ID" />
+            <TableColumn fx:id="modeColumn" prefWidth="150" text="Mode" />
+        </columns>
+    </TableView>
+
+    <Label style="-fx-font-size: 14px; -fx-font-weight: bold;" text="AI Responder" />
+    <TextArea fx:id="chatArea" editable="false" prefHeight="150" prefWidth="600" wrapText="true" />
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <TextField fx:id="userInputField" prefWidth="500" promptText="Entrez votre message ici..." />
+        <Button onAction="#handleSendMessage" text="Envoyer" />
+    </HBox>
+</VBox>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="esprit.tn.controllers.TestController"
+      spacing="10" padding="10">
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="ID:"/>
+        <TextField fx:id="idField" disable="true"/>
+        <Label text="Nom du formateur:"/>
+        <TextField fx:id="nomFormateurField"/>
+        <Label text="Heure du test:"/>
+        <TextField fx:id="heureDuTestField"/>
+        <Label text="Nom de la matière:"/>
+        <TextField fx:id="nomMatiereField"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Ajouter" onAction="#handleAdd"/>
+        <Button text="Modifier" onAction="#handleUpdate"/>
+        <Button text="Supprimer" onAction="#handleDelete"/>
+        <Button text="Actualiser" onAction="#handleRefresh"/>
+    </HBox>
+
+    <TableView fx:id="testTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="nomFormateurColumn" text="Formateur" prefWidth="150"/>
+            <TableColumn fx:id="heureDuTestColumn" text="Heure" prefWidth="100"/>
+            <TableColumn fx:id="nomMatiereColumn" text="Matière" prefWidth="150"/>
+        </columns>
+    </TableView>
+
+</VBox> 
